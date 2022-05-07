@@ -1,5 +1,6 @@
 import pandas as pd
 import os.path
+import tabulate #arrange (data) in tabular form.
 
 
 alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
