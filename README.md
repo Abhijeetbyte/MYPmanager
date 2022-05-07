@@ -9,7 +9,7 @@ MYP manager is a Python-based tool/software, built to manage your passwords alon
 # Getting started
 
 <!-- Badge section -->
-![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?style=plastic)
+<!--    ![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?style=plastic) -->
 ![repo-size](https://img.shields.io/github/repo-size/abhijeetbyte/MYPmanager?style=plastic)
 ![Languages](https://img.shields.io/badge/Python-FFD43B?plastic&logo=python&logoColor=blue)
 ![OS](https://img.shields.io/badge/Windows-0078D6?style=plastic&logo=windows&logoColor=white)
