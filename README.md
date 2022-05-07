@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="gif/mypcon.png" width="150" height="150">
+</p>
+
 # MYPmanager
 MYP manager is a Python-based tool/software, built to manage your passwords along with other credentials.</br>
 
