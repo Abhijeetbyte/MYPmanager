@@ -161,10 +161,17 @@ while True :
             os.system('cls')# clear all
             
             print("\n"*2," Add new credential \n")
-            name = input(" enter name/user name, you want to save : ")
+            name = input(" enter name/username, you want to save : ")
             password = input(" enter password, you want to save : ")  # this will be encrypted
-            url = input(" enter url/link, you want to save : ")
-
+            url = input(" enter url or app name, you want to save : ")
+            
+            #Default duplicate check in DataFrame/CSV file
+            df = pd.read_csv('data.csv')
+            
+            if url in df.values: # check if given URL exists
+                print("\n Error: url or app name is already present, try a bit different")
+                url = input("\n enter url or app, you want to save : ")
+            
             encrypted_pass = encrypt(password) # call encrypt function to encrypt password
             add(name, encrypted_pass, url) # call function to add user data
 
@@ -180,6 +187,8 @@ while True :
             sub_option = int(input("\n Select the corresponding option & press enter :  "))
             
             if (sub_option == 2): 
+             
+                #Logic/Contole Str. to decrypt all saved passwords/credentials
 
                 df = pd.read_csv('data.csv')
                 df = df.reset_index()  # make sure indexes pair with number of rows
