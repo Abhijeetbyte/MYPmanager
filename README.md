@@ -1,7 +1,9 @@
 <p align="center">
   <img src="gif/mypcon.png" width="150" height="150">
 </p>
+
 # MYPmanager
+
 MYP manager is a Python-based tool/software, built to manage your passwords along with other credentials.</br>
 
 # Features
@@ -16,7 +18,7 @@ MYP manager is a Python-based tool/software, built to manage your passwords alon
 [![Releases](https://img.shields.io/badge/Github-Releases-blue)](https://github.com/Abhijeetbyte/MYPmanager/releases)
 [![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?style=plastic)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.0/MYPmanager_setup.exe)
 [![Languages](https://img.shields.io/badge/Python-FFD43B?plastic&logo=python&logoColor=blue)](main.py)
-![OS](https://img.shields.io/badge/Windows-0078D6?style=plastic&logo=windows&logoColor=white)
+[![OS](https://img.shields.io/badge/Windows-0078D6?style=plastic&logo=windows&logoColor=white)](README.md) <!--added redme link, just to not go elseweher -->
 
 
 
