@@ -168,9 +168,14 @@ while True :
             #Default duplicate check in DataFrame/CSV file
             df = pd.read_csv('data.csv')
             
-            if url in df.values: # check if given URL exists
-                print("\n Error: url or app name is already present, try a bit different")
-                url = input("\n enter url or app, you want to save : ")
+            while True:
+            
+                if url in df.values: # check if given URL exists
+                    print("\n Error: url or app name is already present, try a bit different")
+                    url = input("\n enter url or app, you want to save : ")
+
+                if url not in df.values: #if given URL does not exists
+                    break 
             
             encrypted_pass = encrypt(password) # call encrypt function to encrypt password
             add(name, encrypted_pass, url) # call function to add user data
