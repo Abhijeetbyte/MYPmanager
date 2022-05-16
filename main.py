@@ -165,16 +165,25 @@ while True :
             password = input(" enter password, you want to save : ")  # this will be encrypted
             url = input(" enter url or app name, you want to save : ")
             
+            if (name == ''): #if found empty, replace it by 'Unavailable' label
+                name='Unavailable'
+            if (password ==''):
+                password='Unavailable'
+            
             #Default duplicate check in DataFrame/CSV file
             df = pd.read_csv('data.csv')
             
             while True:
+             
+                if (url ==''):
+                    print('\n Warning: please enter a url or app name')
+                    url = input("\n enter url or app, you want to save : ")
             
                 if url in df.values: # check if given URL exists
                     print("\n Error: url or app name is already present, try a bit different")
                     url = input("\n enter url or app, you want to save : ")
 
-                if url not in df.values: #if given URL does not exists
+                if url not in df.values and url !='': #if given URL does not exists and url is not empty
                     break 
             
             encrypted_pass = encrypt(password) # call encrypt function to encrypt password
