@@ -25,7 +25,7 @@ MYP manager is a Python-based tool/software, built to manage your passwords alon
 
 * Your computer must be running Python3 or newer.
 * The script requires [pandas](https://pandas.pydata.org/docs/index.html) library installed. </br>
-   - open windows shell and run `pip install pandas` to install pandas library </br>
+   - Open Terminal and run `pip install pandas` to install pandas library </br>
 * Get the source [code](https://github.com/Abhijeetbyte/MYPmanager/archive/refs/heads/main.zip)
 
 * Extract the zip and open <b> main.py</b> in Python IDE to build and run the Password manager app.
