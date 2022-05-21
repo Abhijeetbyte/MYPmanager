@@ -106,7 +106,26 @@ def delete(url):
 
 
 
+def backup():
 
+    df = pd.read_csv("data.csv", index_col = 0) #read the orignal file
+
+    dp= os.getcwd() # get the default path, initial directory
+    
+    os.chdir("..") #change the current working directory, one dir back
+    
+    cp= os.getcwd() #get the current path
+    cp = cp + "\MYPmanager_Backup\data.csv" #add FolderName & FileName to obtained path
+    
+    if os.path.isdir('MYPmanager_Backup')== False: # If 'BackupMYPmanager' not exists
+
+       os.makedirs('MYPmanager_Backup')# Create one, for back up
+     
+    df.to_csv(cp)#save a copy of same, cp = path
+    os.chdir(dp) #Restoring the default path
+
+    
+    
 data_file = os.path.isfile('data.csv') # check whether data file is there or not
 
 if data_file == False : #if not then, create one
@@ -237,12 +256,23 @@ while True :
             url = input("\n enter URL or App name, you want to edit : ")
 
             show = search(url)#call fun, to show respective data related to url
-            show = show.to_markdown(index=False) #Pretty Print
+            show_md = show.to_markdown(index=False) #Pretty Print
             print('\n')
-            print(show)
+            print(show_md)
             
             new_name = input("\n enter new name/user name : ")
             new_password = input(" enter new password: ")  # this will be encrypted
+            
+            #Exception----------------------
+        
+            show.set_index('Url/App name', inplace=True)# make column index
+            old_password = show['Password'][url] #column id , index of that row; get old password
+            old_name= show['Username'][url] #get old Username
+            
+            if (new_name == ''): #if found empty, take old data
+                new_name = old_name
+            if (new_password ==''):
+                new_password= old_password
 
             new_password = encrypt(new_password)# call fun, to encrypted
             edit(url, new_name, new_password) #call edit function
@@ -279,6 +309,7 @@ while True :
                    
         print("\n"*2)
         Continue = input(" Press Enter to 'OK' ")
+        backup() # Back up the changes made
 
         
 
