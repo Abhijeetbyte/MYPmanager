@@ -10,6 +10,7 @@ MYP manager is a Python-based tool/software, built to manage your passwords alon
 * Standard Password manager offers basic operations like **Add**, **Search**, **Edit** and **Delete** etc.
 * Only need to remember Master Password for all your saved credentials.
 * Saves your passwords in encrypted form, locally
+* Auto Backup as `.csv` file
 
 # Getting started
 
