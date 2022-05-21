@@ -237,7 +237,7 @@ while True :
             url = input("\n enter URL or App name, you want to edit : ")
 
             show = search(url)#call fun, to show respective data related to url
-            show = df2.to_markdown(index=False) #Pretty Print
+            show = show.to_markdown(index=False) #Pretty Print
             print('\n')
             print(show)
             
@@ -264,7 +264,7 @@ while True :
                 url = input("\n enter URL or App name, you want to delete : ")
                 
                 show = search(url)#call fun, to show respective data related to url
-                show = df2.to_markdown(index=False) #Pretty Print
+                show = show.to_markdown(index=False) #Pretty Print
                 print('\n')
                 print(show)
                 delete(url) # call delete function
