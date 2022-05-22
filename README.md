@@ -6,13 +6,13 @@
 
 My password manager (MYPmanager) is a Python-based tool/software, built to manage your passwords along with other credentials.</br>
 
-# Features
+## Features
 * Standard Password manager offers basic operations like **Add**, **Search**, **Edit** and **Delete** etc.
 * Only need to remember Master Password for all your saved credentials.
 * Saves your passwords in encrypted form, locally
 * Auto Backup as `.csv` file
 
-# Getting started
+## Getting started
 
 <!-- Badge section 
 
@@ -22,17 +22,18 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 [![OS](https://img.shields.io/badge/Windows-0078D6?style=plastic&logo=windows&logoColor=white)](README.md) <!--added redme link, just to not go elseweher -->
 
 
-<b>Prerequisites</b> :
+<b>Prerequisites</b>:
 
 * Your computer must be running Python3 or newer.
 * The script requires [pandas](https://pandas.pydata.org/docs/index.html) library installed. </br>
    - Open Terminal and run `pip install pandas` to install pandas library </br>
 * Get the source [code](https://github.com/Abhijeetbyte/MYPmanager/archive/refs/heads/main.zip)
 
-* Extract the zip and open <b> main.py</b> in Python IDE to build and run the Password manager app.
+* Extract the zip and open <b> main.py</b> in Python IDE to build and run the Password manager app.</br>
+  
+  
+  **Windows users can download the binary release**
 
- **Windows users can download the binary release**
- 
 * Your computer must be running Windows 10 or newer.
 * Install the latest version of the Application. [Download v1.1](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.1/MYPmanager_setup.exe)
 
@@ -45,10 +46,11 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 ## Uses
 ![Intro GIF](gif/gif2.gif)</br>
 
-# Reporting Issues
-* Feel free to report <b>[issues](https://github.com/Abhijeetbyte/MYPmanager/issues/new)</b>
+## Reporting Issues
 
-# License
+Feel free to report <b>[issues](https://github.com/Abhijeetbyte/MYPmanager/issues/new)</b>
+
+## License
 
 Copyright © 2022 Abhijeet kumar. All rights reserved.
 
