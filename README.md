@@ -16,8 +16,6 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 
 <!-- Badge section -->
 
-
-[![CodeQL](https://github.com/Abhijeetbyte/MYPmanager/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Abhijeetbyte/MYPmanager/actions/workflows/codeql-analysis.yml)
 [![Releases](https://img.shields.io/badge/Github-Releases-blue)](https://github.com/Abhijeetbyte/MYPmanager/releases)
 [![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?color=green&label=Downloads&style=plastic)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.1/MYPmanager_setup.exe)
 [![Languages](https://img.shields.io/badge/Python-FFD43B?plastic&logo=python&logoColor=blue)](main.py)
