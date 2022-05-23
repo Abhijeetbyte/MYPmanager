@@ -1,10 +1,20 @@
 <p align="center">
-  <img src="gif/mypcon.png" width="150" height="150">
+  <img src="gif/mypcon.png" width="130" height="130">
 </p>
 
 # MYPmanager
 
 My password manager (MYPmanager) is a Python-based tool/software, built to manage your passwords along with other credentials.</br>
+
+<!-- Badge section -->
+
+[![Releases](https://img.shields.io/badge/Github-Releases-blue)](https://github.com/Abhijeetbyte/MYPmanager/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.1/MYPmanager_setup.exe)
+[![Languages](https://img.shields.io/badge/Python-FFD43B?&logo=python&logoColor=blue)](main.py)
+[![OS](https://img.shields.io/badge/Windows-0078D6?&logo=windows&logoColor=white)](README.md) <!--added redme links, just to not go elseweher -->
+</br>
+</br>
+
 
 ## Features
 * Standard Password manager offers basic operations like **Add**, **Search**, **Edit** and **Delete** etc.
@@ -13,13 +23,6 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 * Auto Backup as `.csv` file
 
 ## Getting started
-
-<!-- Badge section -->
-
-[![Releases](https://img.shields.io/badge/Github-Releases-blue)](https://github.com/Abhijeetbyte/MYPmanager/releases)
-[![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?color=green&label=Downloads&style=plastic)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.1/MYPmanager_setup.exe)
-[![Languages](https://img.shields.io/badge/Python-FFD43B?plastic&logo=python&logoColor=blue)](main.py)
-[![OS](https://img.shields.io/badge/Windows-0078D6?style=plastic&logo=windows&logoColor=white)](README.md) <!--added redme links, just to not go elseweher -->
 
 
 <b>Prerequisites</b>:
