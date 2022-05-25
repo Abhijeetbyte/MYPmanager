@@ -134,7 +134,7 @@ if data_file == False : #if not then, create one
     #First time instructions:
     print("\n Welcome to My Password manager\
            \n\n This password manager uses a Master Password\
-           \n to encrypt & decrypt your saved passwords.\
+           \n to encrypt & decrypt your data.\
            \n Use any 10 digit Password (only letters & numbers)\
            \n and remember that.\
            \n\n Warning: If you lose your Master Password, then you \
@@ -284,27 +284,16 @@ while True :
             os.system('cls')# clear all
 
             print("\n"*2," Delete saved credential \n")
-            print("\n [1] To delete a specific saved credential\
-                   \n [2] To delete All saved credentials ")
+            url = input("\n enter URL or App name, you want to delete : ")
             
-            sub_option = int(input("\n Select the corresponding option & press enter :  "))
+            show = search(url)#call fun, to show respective data related to url
+            show = show.to_markdown(index=False) #Pretty Print
+            print('\n')
+            print(show)
             
-            if (sub_option == 1): 
-
-                url = input("\n enter URL or App name, you want to delete : ")
-                
-                show = search(url)#call fun, to show respective data related to url
-                show = show.to_markdown(index=False) #Pretty Print
-                print('\n')
-                print(show)
+            confirm = input("\n Do you want to continue, enter [y/n]  : ")
+            if (confirm == 'y' or confirm == 'Y'):
                 delete(url) # call delete function
-                
-            else:
-                print('\n This will delete all saved data')
-                conforme = input(" Do you want to continue, enter [y/n]  : ")
-                if (conforme == 'y' or conforme == 'Y'):
-                    create_csv()# call fun, create new csv (trick)
-                    print('\n Deleted successfully')
                     
                    
         print("\n"*2)
