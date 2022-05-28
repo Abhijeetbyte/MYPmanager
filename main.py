@@ -72,8 +72,8 @@ def search(url=''):
 
     df = pd.read_csv('data.csv')
     
-    dfS = df[df['Url/App name'].str.contains(url)] # pass a string (word) to search like or related words in dataframe
-    dfS.head()                                     # if on argument were pass (url='') ,then it will fetch entire dataframe
+    dfS = df[df['Url/App name'].str.contains(url, na=False, case=False)] # pass a string (word) to search like or related words in dataframe
+    dfS.head()                                                           # if on argument were pass (url='') ,then it will fetch entire dataframe
     #print(dfS)
     
     index_d = dfS.index.values #take default index
@@ -89,7 +89,7 @@ def search(url=''):
       dec_password= decrypt(find_password) #decrypt that
       password.append(dec_password)
     
-    dfS = dfS.set_index(index_d) #set to default/origianl index for refrence
+    dfS = dfS.set_index(index_d) #set to default/original index for reference
     dfS['Password'] = password #update password column with decrypted passwords
   
     return dfS
@@ -251,7 +251,6 @@ while True :
                 index = int(input(" Select the corresponding index value : "))
             else:
                 index= show.index.values #take default index
-                index = int(index)
 
             new_name = input("\n enter new name/user name : ")
             new_password = input(" enter new password: ")  # this will be encrypted
@@ -289,7 +288,6 @@ while True :
                 index = int(input(" Select the corresponding index value : "))
             else:
                 index= show.index.values #take default index
-                index= int(index)
                 
             confirm = input("\n Do you want to continue, enter [y/n]  : ")
             
@@ -308,4 +306,3 @@ while True :
         continue # skip error , restart the loop ( try: block )
 
     
-
