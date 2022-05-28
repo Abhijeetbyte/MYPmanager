@@ -55,52 +55,68 @@ def create_csv():
 
     
 
-
 def add(name, encrypted_pass, url ):
         
     user_data = {'Url/App name':[url], 'Username':[name], 'Password':[encrypted_pass]} #will save in same order (,) to csv file
     
     df = pd.DataFrame(user_data) # pack user data into data frame
-    df.to_csv('data.csv', mode='a', header= False, index= False)# Save to CSV file, append New row
+    df.to_csv('data.csv', mode='a', header= False, index=False)# Save to CSV file, append New row
     
     print('\n Added successfully')
 
-        
+   
 
-def search(url):
+def search(url=''):
 
     # Extract form CSV file
 
-    df = pd.read_csv("data.csv",index_col = 0) #using 0th column (Url) as index
-    find_password = df['Password'][url] #column id , index of that row; get stored password
-    find_username= df['Username'][url] #get stored Username
+    df = pd.read_csv('data.csv')
     
-    decrypted_pass = decrypt(find_password) # call decrypt function to decrypt stored password
-    df = pd.DataFrame({'Username':[find_username], 'Password':[decrypted_pass],'Url/App name':[url]}) #to print found  data
+    dfS = df[df['Url/App name'].str.contains(url)] # pass a string (word) to search like or related words in dataframe
+    dfS.head()                                     # if on argument were pass (url='') ,then it will fetch entire dataframe
+    #print(dfS)
+    
+    index_d = dfS.index.values #take default index
+    
+    #Logic/Sontrol str. to decrypt all found passwords
 
-    return df
+    password =[] #empty list to store decrypted password from for loop data
+    dfS = dfS.reset_index()  # make sure indexes pair with number of row
 
+    for index, row in dfS.iterrows(): #iterate over all rows
+      
+      find_password = dfS.loc[index,'Password']# go through all the rows of Password column ; get passwords
+      dec_password= decrypt(find_password) #decrypt that
+      password.append(dec_password)
+    
+    dfS = dfS.set_index(index_d) #set to default/origianl index for refrence
+    dfS['Password'] = password #update password column with decrypted passwords
+  
+    return dfS
+    
    
+  
+def edit(index, new_name, new_password):
 
-def edit(url, new_name, new_password):
+    df = pd.read_csv("data.csv") #using 0th column (Url) as index
+    
+    # Edit row at given 'index'
+    
+    df.loc[index,['Username', 'Password']] = [new_name, new_password] #replace it with new user data
+    df.to_csv('data.csv', index=False) #save it
 
-    df = pd.read_csv("data.csv",index_col = 0) #using 0th column (Url) as index
-    
-    # Edi row at index 'url'
-    df.loc[url] = [new_name, new_password] #replace it with new user data
-    df.to_csv('data.csv') #save it
-    
     print('\n Edited successfully')
 
 
 
-def delete(url):
+def delete(index):
 
-    df = pd.read_csv("data.csv",index_col = 0) #using 0th column (Url) as index
+    df = pd.read_csv("data.csv")
     
-    # Delete row at index 'url'
-    df.drop([url],  axis=0, inplace=True)
-    df.to_csv('data.csv') #save it
+    # Delete row at given 'index'
+    
+    df.drop([index],  axis=0, inplace=True)
+    df.to_csv('data.csv', index=False) #save it
     
     print('\n Deleted successfully')
 
@@ -108,12 +124,9 @@ def delete(url):
 
 def backup():
 
-    df = pd.read_csv("data.csv", index_col = 0) #read the orignal file
-
+    df = pd.read_csv("data.csv") #read the orignal file
     dp= os.getcwd() # get the default path, initial directory
-    
-    os.chdir("..") #change the current working directory, one dir back
-    
+    os.chdir("..") #change the current working directory, one dir back 
     cp= os.getcwd() #get the current path
     cp = cp + "\MYPmanager_Backup\data.csv" #add FolderName & FileName to obtained path
     
@@ -121,10 +134,10 @@ def backup():
 
        os.makedirs('MYPmanager_Backup')# Create one, for back up
      
-    df.to_csv(cp)#save a copy of same, cp = path
+    df.to_csv(cp , index=False)#save a copy of same, cp = path
     os.chdir(dp) #Restoring the default path
 
-    
+
     
 data_file = os.path.isfile('data.csv') # check whether data file is there or not
 
@@ -139,7 +152,7 @@ if data_file == False : #if not then, create one
            \n and remember that.\
            \n\n Warning: If you lose your Master Password, then you \
            \n will not be able to recover your saved passwords.\
-           \n\n Visit: https://github.com/Abhijeetbyte/MYPmanager.git\
+           \n\n Visit: https://github.com/Abhijeetbyte/MYPmanager\
            \n\n Thank You !\n")
 
 
@@ -155,8 +168,6 @@ Master_pass = int(Master_pass)
 
 
 
-
-
 while True :
 
     try: # try block
@@ -168,9 +179,9 @@ while True :
         print("\n [1] To save new credential\
             \n [2] To search saved credential\
             \n [3] To edit saved credential\
-            \n [4] To delete saved credential")
+            \n [4] To delete saved credential\n")
         
-        menu_option = int(input("\n Select the corresponding option & press enter : "))
+        menu_option = int(input(" Select the corresponding option & press enter : "))
 
             
             
@@ -188,23 +199,11 @@ while True :
                 name='Unavailable'
             if (password ==''):
                 password='Unavailable'
-            
-            #Default duplicate check in DataFrame/CSV file
-            df = pd.read_csv('data.csv')
-            
-            while True:
-             
-                if (url ==''):
+            if (url ==''):
+                while (url ==''):
                     print('\n Warning: please enter a url or app name')
                     url = input("\n enter url or app, you want to save : ")
-            
-                if url in df.values: # check if given URL exists
-                    print("\n Error: url or app name is already present, try a bit different")
-                    url = input("\n enter url or app, you want to save : ")
-
-                if url not in df.values and url !='': #if given URL does not exists and url is not empty
-                    break 
-            
+        
             encrypted_pass = encrypt(password) # call encrypt function to encrypt password
             add(name, encrypted_pass, url) # call function to add user data
 
@@ -219,30 +218,17 @@ while True :
                       \n [2] To see All saved credentials ")
             sub_option = int(input("\n Select the corresponding option & press enter :  "))
             
-            if (sub_option == 2): 
-             
-                #Logic/Contole Str. to decrypt all saved passwords/credentials
-
-                df = pd.read_csv('data.csv')
-                df = df.reset_index()  # make sure indexes pair with number of rows
-
-                df2 =pd.DataFrame(columns=['Username','Password','Url/App name']) # empty df to append for loop data
+            if (sub_option == 1):
                 
-                for index, row in df.iterrows(): #iterate over all rows
-                  
-                  url = (row['Url/App name'])# go through all the rows of URL column ; get urls
-                  df1 = search(url) # pass all found urls to search function
-                  #df2 = df2.append(df1)
-                  df2 = pd.concat([df1, df2], axis=0)
-                  
-                show_all = df2.to_markdown(index=False) #Pretty Print (Dataframe To Markdown)
-                print('\n')
-                print(show_all)
-            
-            else:
                 url = input("\n enter URL or App name, you want to search : ")
                 show = search(url)# call function to search/extract user data from csv
-                show = show.to_markdown(index=False) #Pretty Print (Dataframe To Markdown)
+                show = show.to_markdown(tablefmt="orgtbl", index=False) #Pretty Print (Dataframe To Markdown)
+                print('\n')
+                print(show)
+             
+            else:
+                show = search()# call function with no argument
+                show = show.to_markdown(tablefmt="orgtbl", index=False) #Pretty Print (Dataframe To Markdown)
                 print('\n')
                 print(show)
 
@@ -256,26 +242,33 @@ while True :
             url = input("\n enter URL or App name, you want to edit : ")
 
             show = search(url)#call fun, to show respective data related to url
-            show_md = show.to_markdown(index=False) #Pretty Print
+            show_md = show.to_markdown(tablefmt="orgtbl", index=False) #Pretty Print
             print('\n')
             print(show_md)
-            
+            print('\n'*2)
+
+            if (len(show) > 1): #multiple credentials found, len = rows
+                index = int(input(" Select the corresponding index value : "))
+            else:
+                index= show.index.values #take default index
+                index = int(index)
+
             new_name = input("\n enter new name/user name : ")
             new_password = input(" enter new password: ")  # this will be encrypted
             
-            #Exception----------------------
-        
-            show.set_index('Url/App name', inplace=True)# make column index
-            old_password = show['Password'][url] #column id , index of that row; get old password
-            old_name= show['Username'][url] #get old Username
             
+            #Exception----------------------
+
             if (new_name == ''): #if found empty, take old data
+                old_name= show.loc[index, 'Username'] #column id , index of that row; get old Username
                 new_name = old_name
+                
             if (new_password ==''):
+                old_password = show.loc[index, 'Password'] #get old password
                 new_password= old_password
 
             new_password = encrypt(new_password)# call fun, to encrypted
-            edit(url, new_name, new_password) #call edit function
+            edit(index, new_name, new_password) #call edit function
             
         
         
@@ -287,13 +280,21 @@ while True :
             url = input("\n enter URL or App name, you want to delete : ")
             
             show = search(url)#call fun, to show respective data related to url
-            show = show.to_markdown(index=False) #Pretty Print
+            show_md = show.to_markdown(tablefmt="orgtbl", index=False) #Pretty Print
             print('\n')
-            print(show)
-            
+            print(show_md)
+            print('\n'*2)
+
+            if (len(show) > 1): #multiple credentials found, len = rows
+                index = int(input(" Select the corresponding index value : "))
+            else:
+                index= show.index.values #take default index
+                index= int(index)
+                
             confirm = input("\n Do you want to continue, enter [y/n]  : ")
+            
             if (confirm == 'y' or confirm == 'Y'):
-                delete(url) # call delete function
+                delete(index) # call delete function
                     
                    
         print("\n"*2)
@@ -307,5 +308,4 @@ while True :
         continue # skip error , restart the loop ( try: block )
 
     
-
 
