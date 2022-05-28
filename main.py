@@ -251,6 +251,7 @@ while True :
                 index = int(input(" Select the corresponding index value : "))
             else:
                 index= show.index.values #take default index
+                index = int(index)
 
             new_name = input("\n enter new name/user name : ")
             new_password = input(" enter new password: ")  # this will be encrypted
@@ -288,6 +289,7 @@ while True :
                 index = int(input(" Select the corresponding index value : "))
             else:
                 index= show.index.values #take default index
+                index = int(index)
                 
             confirm = input("\n Do you want to continue, enter [y/n]  : ")
             
