@@ -159,13 +159,22 @@ if data_file == False : #if not then, create one
          
 print('\n Note: Master Password is a user defined value\
        \n needed to encrypt & decrypt data correctly')
-Master_pass =(input("\n Enter Master Password : "))
+while True:
+    
+    try:
+        
+        Master_pass =(input("\n Enter Master Password : "))
 
-Master_pass = "".join([(str(ord(x)-96) if x.isalpha() else x) for x in list(Master_pass)])
-Master_pass = format(Master_pass).replace("-","")
-Master_pass = int(Master_pass)
-#print(Master_pass, type(Master_pass))
+        Master_pass = "".join([(str(ord(x)-96) if x.isalpha() else x) for x in list(Master_pass)])
+        Master_pass = format(Master_pass).replace("-","")
+        Master_pass = int(Master_pass)
+        #print(Master_pass, type(Master_pass))
+        break # if everything is fine; exit loop
 
+    except:
+        print('\n Warning: Master Password consists of letters and numbers only')
+        
+        
 
 
 while True :
