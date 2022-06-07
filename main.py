@@ -146,9 +146,9 @@ if data_file == False : #if not then, create one
     
     #First time instructions:
     print("\n Welcome to My Password manager\
-           \n\n This password manager uses a Master Password\
+           \n\n This application uses a Master Password\
            \n to encrypt & decrypt your data.\
-           \n Use any 10 digit Password (only letters & numbers)\
+           \n Use any 10 characters password (only letters & numbers)\
            \n and remember that.\
            \n\n Warning: If you lose your Master Password, then you \
            \n will not be able to recover your saved passwords.\
