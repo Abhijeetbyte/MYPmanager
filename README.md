@@ -9,7 +9,7 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 <!-- Badge section -->
 
 [![Releases](https://img.shields.io/badge/Github-Releases-blue)](https://github.com/Abhijeetbyte/MYPmanager/releases)
-[![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.2/MYPmanager_setup.exe)
+[![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.3/MYPmanager_setup.exe)
 [![Languages](https://img.shields.io/badge/Python-FFD43B?&logo=python&logoColor=blue)](main.py)
 [![OS](https://img.shields.io/badge/Windows-0078D6?&logo=windows&logoColor=white)](README.md) <!--added redme links, just to not go elseweher -->
 </br>
@@ -38,7 +38,7 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
   **Windows users can download the binary release**
 
 * Your computer must be running Windows 10 or newer.
-* Install the latest version of the Application. [Download v1.2](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.2/MYPmanager_setup.exe)
+* Install the latest version of the Application. [Download v1.3](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.3/MYPmanager_setup.exe)
 
 
 ## Intro
