@@ -21,6 +21,7 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 * Only need to remember Master Password for all your saved credentials.
 * Saves your passwords in encrypted form, locally
 * Auto Backup as `.csv` file
+* Available in both Portable (require no installation) and Installer 
 
 ## Getting started
 
@@ -39,6 +40,7 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 
 * Your computer must be running Windows 10 or newer.
 * Install the latest version of the Application. [Download v1.3](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.3/MYPmanager_setup.exe)
+  - Portable version [Download v1.3](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.3/MYPmanager.exe)
 
 
 ## Intro
