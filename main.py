@@ -1,17 +1,27 @@
 import pandas as pd
 import os.path
+import os 
 import tabulate #arrange (data) in tabular form.
 
 
+os.system('color')
+
 alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
-print("""\n
- ╔╦╗╦ ╦╔═╗┌┬┐┌─┐┌┐┌┌┐┌┌─┐┌─┐┌─┐┬─┐
- ║║║╚╦╝╠═╝│││├─┤││││││├┤ │ ┬├┤ ├┬┘
- ╩ ╩ ╩ ╩  ┴ ┴┴ ┴┘└┘┘└┘└─┘└─┘└─┘┴└─
-\n""")
 
 
+class textcolor:
+
+    #Ansi color codes
+  
+    HEADER = '\033[36m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[33m'
+    FAIL = '\033[91m'
+    BOLD = '\033[1m'
+    ENDC = '\033[0m'
+
+    
 
 def encrypt(password):
 
@@ -62,7 +72,7 @@ def add(name, encrypted_pass, url ):
     df = pd.DataFrame(user_data) # pack user data into data frame
     df.to_csv('data.csv', mode='a', header= False, index=False)# Save to CSV file, append New row
     
-    print('\n Added successfully')
+    print(textcolor.OKGREEN + '\n Added successfully' + textcolor.ENDC)
 
    
 
@@ -105,7 +115,7 @@ def edit(index, new_name, new_password):
     df.loc[index,['Username', 'Password']] = [new_name, new_password] #replace it with new user data
     df.to_csv('data.csv', index=False) #save it
 
-    print('\n Edited successfully')
+    print(textcolor.OKGREEN + '\n Edited successfully' + textcolor.ENDC)
 
 
 
@@ -118,7 +128,7 @@ def delete(index):
     df.drop([index],  axis=0, inplace=True)
     df.to_csv('data.csv', index=False) #save it
     
-    print('\n Deleted successfully')
+    print(textcolor.OKGREEN + '\n Deleted successfully' + textcolor.ENDC)
 
 
 
@@ -138,27 +148,38 @@ def backup():
     os.chdir(dp) #Restoring the default path
 
 
-    
+
+
+print(textcolor.HEADER + """\n
+ ╔╦╗╦ ╦╔═╗┌┬┐┌─┐┌┐┌┌┐┌┌─┐┌─┐┌─┐┬─┐
+ ║║║╚╦╝╠═╝│││├─┤││││││├┤ │ ┬├┤ ├┬┘
+ ╩ ╩ ╩ ╩  ┴ ┴┴ ┴┘└┘┘└┘└─┘└─┘└─┘┴└─
+""" + textcolor.ENDC)
+
+
+
 data_file = os.path.isfile('data.csv') # check whether data file is there or not
 
 if data_file == False : #if not then, create one
     create_csv()  #call function
     
     #First time instructions:
-    print("\n Welcome to My Password manager\
-           \n\n This application uses a Master Password\
+    print(textcolor.BOLD+ "\n Welcome to My Password manager" + textcolor.ENDC)
+    
+    print("\n This application uses a Master Password\
            \n to encrypt & decrypt your data.\
            \n Use any 10 characters password (only letters & numbers)\
            \n and remember that.\
            \n\n Warning: If you lose your Master Password, then you \
            \n will not be able to recover your saved passwords.\
-           \n\n Visit: https://github.com/Abhijeetbyte/MYPmanager\
-           \n\n Thank You !\n")
-
-
+           \n\n Visit: https://github.com/Abhijeetbyte/MYPmanager")
+    
          
-print('\n Note: Master Password is a user defined value\
+print('\n\n Note: Master Password is a user defined value\
        \n needed to encrypt & decrypt data correctly')
+
+
+
 while True:
     
     try:
@@ -172,7 +193,7 @@ while True:
         break # if everything is fine; exit loop
 
     except:
-        print('\n Warning: Master Password consists of letters and numbers only')
+        print(textcolor.WARNING+'\n WARNING: Master Password consists of letters and numbers only.'+textcolor.ENDC)
         
         
 
@@ -199,7 +220,7 @@ while True :
             
             os.system('cls')# clear all
             
-            print("\n"*2," Add new credential \n")
+            print(textcolor.BOLD+ "\n"*2,"Add new credential \n"+ textcolor.ENDC)
             name = input(" enter name/username, you want to save : ")
             password = input(" enter password, you want to save : ")  # this will be encrypted
             url = input(" enter url or app name, you want to save : ")
@@ -222,7 +243,7 @@ while True :
 
             os.system('cls')# clear all
 
-            print("\n"*2," Search saved credential \n")
+            print(textcolor.BOLD+ "\n"*2,"Search saved credential \n"+ textcolor.ENDC)
             print("\n [1] To see a specific saved credential\
                       \n [2] To see All saved credentials ")
             sub_option = int(input("\n Select the corresponding option & press enter :  "))
@@ -247,7 +268,7 @@ while True :
 
             os.system('cls')# clear all
 
-            print("\n"*2," Edit saved credential")
+            print(textcolor.BOLD+ "\n"*2,"Edit saved credential"+ textcolor.ENDC)
             url = input("\n enter URL or App name, you want to edit : ")
 
             show = search(url)#call fun, to show respective data related to url
@@ -285,7 +306,7 @@ while True :
 
             os.system('cls')# clear all
 
-            print("\n"*2," Delete saved credential \n")
+            print(textcolor.BOLD+ "\n"*2,"Delete saved credential \n"+ textcolor.ENDC)
             url = input("\n enter URL or App name, you want to delete : ")
             
             show = search(url)#call fun, to show respective data related to url
@@ -313,7 +334,9 @@ while True :
         
 
     except:  # all error/any error encountered
-        print('\n Error: Not found !')
+        print(textcolor.FAIL+'\n Error: Not found !'+ textcolor.ENDC)
+        print("\n"*2)
+        Continue = input(" Press Enter to 'OK' ")
         continue # skip error , restart the loop ( try: block )
 
     
