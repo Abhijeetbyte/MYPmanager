@@ -9,10 +9,12 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 <!-- Badge section -->
 
 [![Releases](https://img.shields.io/badge/Github-Releases-blue)](https://github.com/Abhijeetbyte/MYPmanager/releases)
-[![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.3/MYPmanager_setup.exe)
+[![license](https://img.shields.io/github/license/abhijeetbyte/MYPmanager)](LICENSE)
 [![Languages](https://img.shields.io/badge/Python-FFD43B?&logo=python&logoColor=blue)](main.py)
 [![OS](https://img.shields.io/badge/Windows-0078D6?&logo=windows&logoColor=white)](README.md) <!--added redme links, just to not go elseweher -->
-</br>
+
+<!--[![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.3/MYPmanager_setup.exe) --->
+
 </br>
 
 
