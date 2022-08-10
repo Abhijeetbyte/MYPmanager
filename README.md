@@ -13,17 +13,27 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 [![Languages](https://img.shields.io/badge/Python-FFD43B?&logo=python&logoColor=blue)](main.py)
 [![OS](https://img.shields.io/badge/Windows-0078D6?&logo=windows&logoColor=white)](README.md) <!--added redme links, just to not go elseweher -->
 
-<!--[![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.3/MYPmanager_setup.exe) --->
+<!--[![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.4/MYPmanager_setup.exe) --->
 
 </br>
+
+## Why
+
+Privacy is a long-gone concept, many services collect a boatload of user data.<br/>
+And they sell our data to, the government, and others.<br/>
+Recent scare of data (passwords, username and other credentials) leake shook a lot of people.<br/>
+
+<br/>
 
 
 ## Features
 * Standard Password manager offers basic operations like **Add**, **Search**, **Edit** and **Delete** etc.
 * Only need to remember Master Password for all your saved credentials.
-* Saves your passwords in encrypted form, locally
+* Saves your passwords in encrypted form, **locally**
 * Auto Backup as `.csv` file
 * Available in both Portable (require no installation) and Installer 
+<br/>
+
 
 ## Getting started
 
@@ -43,7 +53,7 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 * Your computer must be running Windows 10 or newer.
 * Install the latest version of the Application. [Download v1.4](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.4/MYPmanager_setup.exe)
   - Portable version [Download v1.4](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.4/MYPmanager.exe)
-
+<br/>
 
 ## Intro
 
