@@ -17,14 +17,6 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 
 </br>
 
-## Why
-
-Privacy is a long-gone concept, many services collect a boatload of user data.<br/>
-And they sell our data to, the government, and others.<br/>
-Recent scare of data (passwords, username and other credentials) leake shook a lot of people.<br/>
-
-<br/>
-
 
 ## Features
 * Standard Password manager offers basic operations like **Add**, **Search**, **Edit** and **Delete** etc.
