@@ -14,7 +14,7 @@ class textcolor:
 
     #Ansi color codes
   
-    HEADER = '\033[36m'
+    HEADER = '\033[31m'
     OKGREEN = '\033[92m'
     WARNING = '\033[33m'
     FAIL = '\033[91m'
@@ -168,7 +168,7 @@ if data_file == False : #if not then, create one
     
     print("\n THIS APPLICATION USES A MASTER PASSWORD\
            \n TO ENCRYPT & DECRYPT YOUR DATA.\
-           \n USE ANY PASSWORD (ONLY LETTERS & NUMBERS)\
+           \n USE ANY ALPHANUMERIC PASSWORD (RECOMMENDED)\
            \n AND REMEMBER THAT.\
            \n\n WARNING: IF YOU LOSE YOUR MASTER PASSWORD, THEN YOU\
            \n WILL NOT BE ABLE TO RECOVER YOUR SAVED PASSWORDS.\
