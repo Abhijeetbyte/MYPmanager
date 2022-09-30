@@ -51,12 +51,12 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 
 ## Intro
 
-![Intro GIF](gif/gif-1.gif)</br>
+![Intro GIF](gif/MYPmanager-demo1.gif)</br>
 
 
 ## Uses
 
-![Uses GIF](gif/gif-2.gif)</br>
+![Uses GIF](gif/MYPmanager-demo2.gif)</br>
 
 
 ## Reporting Issues
