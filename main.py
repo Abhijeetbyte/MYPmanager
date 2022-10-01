@@ -256,7 +256,7 @@ while True :
             
             if (sub_option == 1):
                 
-                url = input("\n ENTER URL OR APP NAME,, YOU WANT TO SEARCH: ")
+                url = input("\n ENTER URL OR APP NAME, YOU WANT TO SEARCH: ")
                 show = search(url)# call function to search/extract user data from csv
                 show = show.to_markdown(tablefmt="orgtbl", index=False) #Pretty Print (Dataframe To Markdown)
                 print('\n')
