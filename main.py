@@ -175,7 +175,7 @@ while True:
 
     try:
 
-        Master_pass = (input("\n ENTER MASTER PASSWORD: "))
+        Master_pass = getpass(" ENTER MASTER PASSWORD: ")  # get master password from user
 
         Master_pass = "".join([(str(ord(x) - 96) if x.isalpha() else x) for x in list(Master_pass)])
         Master_pass = format(Master_pass).replace("-", "")
