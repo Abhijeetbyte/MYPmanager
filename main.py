@@ -1,6 +1,7 @@
 import pandas as pd
 import os.path
 import os 
+import tabulate # pretty print, optional dependency
 
 
 os.system('color')
