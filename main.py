@@ -1,7 +1,6 @@
 import pandas as pd
 import os.path
 import os 
-import tabulate #arrange (data) in tabular form.
 
 
 os.system('color')
@@ -83,7 +82,7 @@ def search(url=''):
     df = pd.read_csv('data.csv')
     
     dfS = df[df['Url/App name'].str.contains(url, na=False, case=False)] # pass a string (word) to search like or related words in dataframe
-    dfS.head()                                                           # if on argument were pass (url='') ,then it will fetch entire dataframe
+                                                                          # if on argument were pass (url='') ,then it will fetch entire dataframe
     #print(dfS)
     
     index_d = dfS.index.values #take default index
@@ -151,9 +150,14 @@ def backup():
 
 
 print(textcolor.HEADER + """\n
- ╔╦╗╦ ╦╔═╗┌┬┐┌─┐┌┐┌┌┐┌┌─┐┌─┐┌─┐┬─┐
- ║║║╚╦╝╠═╝│││├─┤││││││├┤ │ ┬├┤ ├┬┘
- ╩ ╩ ╩ ╩  ┴ ┴┴ ┴┘└┘┘└┘└─┘└─┘└─┘┴└─
+
+  __  ____   _____                                   
+ |  \/  \ \ / / _ \_ __  __ _ _ _  __ _ __ _ ___ _ _ 
+ | |\/| |\ V /|  _/ '  \/ _` | ' \/ _` / _` / -_) '_|
+ |_|  |_| |_| |_| |_|_|_\__,_|_||_\__,_\__, \___|_|  
+                                       |___/         
+
+
 """ + textcolor.ENDC)
 
 
@@ -258,7 +262,8 @@ while True :
                 print('\n')
                 print(show)
              
-            else:
+            if (sub_option == 2):
+                
                 show = search()# call function with no argument
                 show = show.to_markdown(tablefmt="orgtbl", index=False) #Pretty Print (Dataframe To Markdown)
                 print('\n')
