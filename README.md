@@ -40,10 +40,10 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 
 * Extract the zip and open <b> main.py</b> in Python IDE to build and run the Password manager app.</br>
   
-  
-  **Windows users can download the binary release**
+### Windows users can download the binary release
 
 * Your computer must be running Windows 10 or newer.
+
 * Install the latest version of the Application. [Download v1.5](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.5/MYPmanager_setup.exe)
   - Portable version [Download v1.5](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.5/MYPmanager.exe)
 <br/>
