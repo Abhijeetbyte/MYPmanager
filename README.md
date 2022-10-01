@@ -33,8 +33,9 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 <b>Prerequisites</b>:
 
 * Your computer must be running Python3 or newer.
-* The script requires [pandas](https://pandas.pydata.org/docs/index.html) library installed. </br>
+* The script requires [pandas](https://pandas.pydata.org/docs/index.html) and [tabulate](https://pypi.org/project/tabulate/) libraries installed. </br>
    - Open Terminal and run `pip install pandas` to install pandas library </br>
+   - run `pip install tabulate` to install tabulate library</br>
   
 * Get the source [code](https://github.com/Abhijeetbyte/MYPmanager/archive/refs/heads/main.zip)
 
