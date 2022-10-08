@@ -175,7 +175,7 @@ while True:
 
     try:
 
-        Master_pass = getpass(" ENTER MASTER PASSWORD: ")  # get master password from user
+        Master_pass = getpass("\n ENTER MASTER PASSWORD: ")  # get master password from user
 
         Master_pass = "".join([(str(ord(x) - 96) if x.isalpha() else x) for x in list(Master_pass)])
         Master_pass = format(Master_pass).replace("-", "")
@@ -268,7 +268,7 @@ while True:
                 index = int(index)
 
             new_name = input("\n ENTER NEW NAME/USERNAME: ")
-            new_password = input(" ENTER NEW PASSWORD: ")  # this will be encrypted
+            new_password = input("\n ENTER NEW PASSWORD: ")  # this will be encrypted
 
             # Exception----------------------
 
