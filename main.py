@@ -268,7 +268,7 @@ while True:
                 index = int(index)
 
             new_name = input("\n ENTER NEW NAME/USERNAME: ")
-            new_password = input("\n ENTER NEW PASSWORD: ")  # this will be encrypted
+            new_password = getpass("\n ENTER NEW PASSWORD: ") # this will be encrypted
 
             # Exception----------------------
 
