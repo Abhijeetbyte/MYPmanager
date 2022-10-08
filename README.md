@@ -59,9 +59,10 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 ![Uses GIF](gif/MYPmanager-demo2.gif)</br>
 
 
-## Reporting Issues
+## Reporting Issues & Contributions
 
-Feel free to report <b>[issues](https://github.com/Abhijeetbyte/MYPmanager/issues/new)</b>
+Feel free to report <b>[issues](https://github.com/Abhijeetbyte/MYPmanager/issues/new)</b> and <b>contribute</b> to this repository
+
 
 ## License
 
