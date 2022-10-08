@@ -4,7 +4,7 @@ import os.path
 import os
 import tabulate  # pretty print, optional dependency
 
-
+os.system('color')
 # Set function clear depending on OS
 
 def clear():
