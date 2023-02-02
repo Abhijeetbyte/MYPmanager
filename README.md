@@ -1,10 +1,12 @@
 <p align="center">
-  <img src="gif/MYPmanager-logo.png" width="130" height="150">
+    <img src="gif/MYPmanager-logo.png?raw=true" height="120px"/>
+    <h1 align="center">MYPmanager</h1>
+    <h4 align="center">
+      A fast and dead-simple password/credential manager app
+    </h4>
+  <br>
 </p>
 
-# MYPmanager
-
-My password manager (MYPmanager) is a Python-based tool/software, built to manage your passwords along with other credentials.</br>
 
 <!-- Badge section -->
 
@@ -12,11 +14,11 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 [![license](https://img.shields.io/github/license/abhijeetbyte/MYPmanager)](LICENSE)
 [![Languages](https://img.shields.io/badge/Python-FFD43B?&logo=python&logoColor=blue)](main.py)
 [![OS](https://img.shields.io/badge/Windows-0078D6?&logo=windows&logoColor=white)](README.md) <!--added redme links, just to not go elseweher -->
+[![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.5/MYPmanager_setup.exe)
 
-<!-- [![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.5/MYPmanager_setup.exe) --->
+My password manager (MYPmanager) is a Python-based tool/software, built to manage your passwords along with other credentials.</br>
 
 </br>
-
 
 ## Features
 * Standard Password manager offers basic operations like **Add**, **Search**, **Edit** and **Delete** etc.
@@ -40,13 +42,19 @@ My password manager (MYPmanager) is a Python-based tool/software, built to manag
 * Get the source [code](https://github.com/Abhijeetbyte/MYPmanager/archive/refs/heads/main.zip)
 
 * Extract the zip and open <b> main.py</b> in Python IDE to build and run the Password manager app.</br>
-  
-### Windows users can download the binary release
 
-* Your computer must be running Windows 10 or newer.
+## Download
+
+[Latest stable release.](https://github.com/abhijeetbyte/MYPmanager/releases/latest)
+
+Releases and prereleases contain links to standalone packages
+(and installers for full releases) for Windows
+  
+_Your computer must be running Windows 10 or newer._
 
 * Install the latest version of the Application. [Download v1.5](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.5/MYPmanager_setup.exe)
-  - Portable version [Download v1.5](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.5/MYPmanager.exe)
+* Portable version [Download v1.5](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.5/MYPmanager.exe)
+
 <br/>
 
 ## Intro
