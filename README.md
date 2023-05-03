@@ -16,7 +16,12 @@
 [![OS](https://img.shields.io/badge/Windows-0078D6?&logo=windows&logoColor=white)](README.md) <!--added redme links, just to not go elseweher -->
 [![Github All Releases](https://img.shields.io/github/downloads/Abhijeetbyte/MYPmanager/total?label=Downloads)](https://github.com/Abhijeetbyte/MYPmanager/releases/download/v1.5/MYPmanager_setup.exe)
 
-My password manager (MYPmanager) is a Python-based tool/software, built to manage your passwords along with other credentials.</br>
+
+The My password manager (MYPmanager) allows users to securely store and manage their passwords and other sensitive information, using encryption to protect the data locally (more securely). The application includes features such as the ability to add, edit, and delete credentials, as well as search for credentials based on specific criteria.
+
+The code is well-organized and easy to read, with clear comments and explanations of each section of the code. The application uses the **Tkinter** library to create a graphical user interface, which includes a main window with tabs for managing credentials, as well as various buttons for performing actions such as adding or deleting credentials.
+
+Overall, MYPmanager is a useful tool for managing personal passwords and other sensitive information. The code is well-written and easy to modify to fit specific needs or to add additional functionality.
 
 </br>
 
