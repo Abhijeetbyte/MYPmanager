@@ -1,13 +1,29 @@
-from getpass import getpass
 import pandas as pd
-import os.path
 import os
+import os.path
+from pwinput import pwinput
+import string
 import tabulate  # pretty print, optional dependency
 
+ALPHABET = string.ascii_letters + string.digits
+
 os.system('color')
-# Set function clear depending on OS
+
+
+class textcolor:
+    # Ansi color codes
+
+    TITLE = '\033[31m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[33m'
+    FAIL = '\033[91m'
+    BOLD = '\033[1m'
+    ENDC = '\033[0m'
+
 
 def clear():
+    # Set function clear depending on OS
+
     # for windows
     if os.name == 'nt':
         os.system('cls')
@@ -17,46 +33,51 @@ def clear():
         os.system('clear')
 
 
-alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+def get_master_password():
+    
+    # Prompt the user to enter the master password
+    master_pass = pwinput(prompt ="\n Enter master password: ", mask="*")
+
+    # Process the master password
+    processed_password = ""
+    for char in master_pass:
+        if char.isalpha():
+            processed_password += str(ord(char.lower()) - 96)
+        else:
+            processed_password += char
+
+    # Convert processed password to an integer
+    master_pass = int(processed_password.replace("-", ""))
+
+    return master_pass
 
 
-class textcolor:
-    # Ansi color codes
-
-    HEADER = '\033[31m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[33m'
-    FAIL = '\033[91m'
-    BOLD = '\033[1m'
-    ENDC = '\033[0m'
-
-
-def encrypt(password):
+def encrypt(password, master_pass):
     # Encrypt password string with master password
-
-    enc_password = ""
+    encrypted_password = ""
+    
     for char in password:
-        if char in alpha:
-            newpos = (alpha.find(char) + Master_pass) % 62
-            enc_password += alpha[newpos]
+        if char in ALPHABET:
+            new_pos = (ALPHABET.find(char) + master_pass) % len(ALPHABET)
+            encrypted_password += ALPHABET[new_pos]
         else:
-            enc_password += char
+            encrypted_password += char
+    
+    return encrypted_password
 
-    return enc_password
 
-
-def decrypt(find_password):
+def decrypt(encrypted_password, master_pass):
     # Decrypt the encrypted password string with master password
-
-    dec_password = ""
-    for char in find_password:
-        if char in alpha:
-            newpos = (alpha.find(char) - Master_pass) % 62
-            dec_password += alpha[newpos]
+    decrypted_password = ""
+    
+    for char in encrypted_password:
+        if char in ALPHABET:
+            new_pos = (ALPHABET.find(char) - master_pass) % len(ALPHABET)
+            decrypted_password += ALPHABET[new_pos]
         else:
-            dec_password += char
-
-    return dec_password
+            decrypted_password += char
+    
+    return decrypted_password
 
 
 def create_csv():
@@ -80,8 +101,7 @@ def search(url=''):
 
     df = pd.read_csv('data.csv')
 
-    dfS = df[df['Url/App name'].str.contains(url, na=False,
-                                             case=False)]  # pass a string (word) to search like or related words in dataframe
+    dfS = df[df['Url/App name'].str.contains(url, na=False, case=False)]  # pass a string (word) to search like or related words in dataframe
     # if on argument were pass (url='') ,then it will fetch entire dataframe
     # print(dfS)
 
@@ -95,7 +115,7 @@ def search(url=''):
     for index, row in dfS.iterrows():  # iterate over all rows
 
         find_password = dfS.loc[index, 'Password']  # go through all the rows of Password column ; get passwords
-        dec_password = decrypt(find_password)  # decrypt that
+        dec_password = decrypt(find_password, master_password)  # decrypt that
         password.append(dec_password)
 
     dfS = dfS.set_index(index_d)  # set to default/original index for reference
@@ -141,7 +161,8 @@ def backup():
     os.chdir(dp)  # Restoring the default path
 
 
-print(textcolor.HEADER + """\n
+
+print(textcolor.TITLE + """\n
 
   __  ____   _____                                   
  |  \/  \ \ / / _ \_ __  __ _ _ _  __ _ __ _ ___ _ _ 
@@ -152,9 +173,11 @@ print(textcolor.HEADER + """\n
 
 """ + textcolor.ENDC)
 
+
 data_file = os.path.isfile('data.csv')  # check whether data file is there or not
 
 if not data_file:  # if not then, create one
+    
     create_csv()  # call function
 
     # First time instructions:
@@ -171,20 +194,17 @@ if not data_file:  # if not then, create one
 print('\n\n NOTE: MASTER PASSWORD IS A USER DEFINED VALUE\
        \n NEEDED TO ENCRYPT & DECRYPT DATA CORRECTLY.')
 
+
 while True:
 
     try:
 
-        Master_pass = getpass("\n ENTER MASTER PASSWORD: ")  # get master password from user
-
-        Master_pass = "".join([(str(ord(x) - 96) if x.isalpha() else x) for x in list(Master_pass)])
-        Master_pass = format(Master_pass).replace("-", "")
-        Master_pass = int(Master_pass)
-        # print(Master_pass, type(Master_pass))
+        master_password = get_master_password()
         break  # if everything is fine; exit loop
 
     except:
         print(textcolor.WARNING + '\n WARNING: MASTER PASSWORD CONSISTS OF LETTERS & NUMBERS ONLY.' + textcolor.ENDC)
+
 
 while True:
 
@@ -201,13 +221,15 @@ while True:
 
         menu_option = int(input("\n" * 3 + " SELECT AN OPTION & PRESS ENTER : "))
 
+        
+
         if (menu_option == 1):
 
             clear()  # clear all
 
             print(textcolor.BOLD + "\n" * 2, "ADD NEW CREDENTIAL\n" + textcolor.ENDC)
             name = input("\n ENTER NAME/USERNAME, YOU WANT TO SAVE: ")
-            password = getpass("\n ENTER PASSWORD, YOU WANT TO SAVE: ")  # this will be encrypted
+            password = pwinput(prompt ="\n ENTER PASSWORD, YOU WANT TO SAVE: ", mask="*") # this will be encrypted
             url = input("\n ENTER URL OR APP NAME, YOU WANT TO SAVE: ")
 
             if (name == ''):  # if found empty, replace it by 'Unavailable' label
@@ -219,7 +241,7 @@ while True:
                     print(textcolor.WARNING + '\n WARNING: PLEASE ENTER A URL OR APP NAME: ' + textcolor.ENDC)
                     url = input("\n ENTER URL OR APP NAME, YOU WANT TO SAVE: ")
 
-            encrypted_pass = encrypt(password)  # call encrypt function to encrypt password
+            encrypted_pass = encrypt(password, master_password)  # call encrypt function to encrypt password
             add(name, encrypted_pass, url)  # call function to add user data
 
 
@@ -235,16 +257,16 @@ while True:
 
             if (sub_option == 1):
                 url = input("\n ENTER URL OR APP NAME, YOU WANT TO SEARCH: ")
-                show = search(url)  # call function to search/extract user data from csv
-                show = show.to_markdown(tablefmt="orgtbl", index=False)  # Pretty Print (Dataframe To Markdown)
+                show_result = search(url)  # call function to search/extract user data from csv
+                show_in_md = show_result.to_markdown(tablefmt="orgtbl", index=False)  # Pretty Print (Dataframe to Markdown/String)
                 print('\n')
-                print(show)
+                print(show_in_md)
 
             if (sub_option == 2):
-                show = search()  # call function with no argument
-                show = show.to_markdown(tablefmt="orgtbl", index=False)  # Pretty Print (Dataframe To Markdown)
+                show_result = search()  # call function with no argument
+                show_in_md = show_result.to_markdown(tablefmt="orgtbl", index=False)
                 print('\n')
-                print(show)
+                print(show_in_md)
 
 
 
@@ -255,32 +277,32 @@ while True:
             print(textcolor.BOLD + "\n" * 2, "EDIT CREDENTIAL" + textcolor.ENDC)
             url = input("\n ENTER URL OR APP NAME, YOU WANT TO EDIT: ")
 
-            show = search(url)  # call fun, to show respective data related to url
-            show_md = show.to_markdown(tablefmt="orgtbl", index=False)  # Pretty Print
+            show_result = search(url)  # call fun, to show respective data related to url
+            show_in_md = show_result.to_markdown(tablefmt="orgtbl", index=False) 
             print('\n')
-            print(show_md)
+            print(show_in_md)
             print('\n' * 2)
 
-            if (len(show) > 1):  # multiple credentials found, len = rows
+            if (len(show_result) > 1):  # multiple credentials found, len = rows
                 index = int(input("\n SELECT AN INDEX VALUE & PRESS ENTER : "))
             else:
-                index = show.index.values  # take default index
+                index = show_result.index.values  # take default index
                 index = int(index)
 
             new_name = input("\n ENTER NEW NAME/USERNAME: ")
-            new_password = getpass("\n ENTER NEW PASSWORD: ") # this will be encrypted
+            new_password = pwinput(prompt ="\n ENTER NEW PASSWORD : ", mask="*") # this will be encrypted
 
             # Exception----------------------
 
             if (new_name == ''):  # if found empty, take old data
-                old_name = show.loc[index, 'Username']  # column id , index of that row; get old Username
+                old_name = show_result.loc[index, 'Username']  # column id , index of that row; get old Username
                 new_name = old_name
 
             if (new_password == ''):
-                old_password = show.loc[index, 'Password']  # get old password
+                old_password = show_result.loc[index, 'Password']  # get old password
                 new_password = old_password
 
-            new_password = encrypt(new_password)  # call fun, to encrypted
+            new_password = encrypt(new_password, master_password)  # call fun, to encrypted
             edit(index, new_name, new_password)  # call edit function
 
 
@@ -292,16 +314,16 @@ while True:
             print(textcolor.BOLD + "\n" * 2, "DELETE CRDENTIAL \n" + textcolor.ENDC)
             url = input("\n ENTER URL OR APP NAME, YOU WANT TO DELETE: ")
 
-            show = search(url)  # call fun, to show respective data related to url
-            show_md = show.to_markdown(tablefmt="orgtbl", index=False)  # Pretty Print
+            show_result = search(url)  # call fun, to show respective data related to url
+            show_in_md = show_result.to_markdown(tablefmt="orgtbl", index=False)  
             print('\n')
-            print(show_md)
+            print(show_in_md)
             print('\n' * 2)
 
-            if (len(show) > 1):  # multiple credentials found, len = rows
+            if (len(show_result) > 1):  # multiple credentials found, len = rows
                 index = int(input("\n SELECT AN INDEX VALUE & PRESS ENTER : "))
             else:
-                index = show.index.values  # take default index
+                index = show_result.index.values  # take default index
                 index = int(index)
 
             confirm = input("\n DO YOU WANT TO CONTINUE, ENTER [Y/N] : ")
