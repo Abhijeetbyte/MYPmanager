@@ -27,7 +27,7 @@ Overall, MYPmanager is a useful tool for managing personal passwords and other s
 
 ## Features
 * Standard Password manager offers basic operations like **Add**, **Search**, **Edit** and **Delete** etc.
-* Only need to remember Master Password for all your saved credentials.
+* Only need to remember the Master Password for all your saved credentials.
 * Saves your passwords in encrypted form, **locally**
 * Auto Backup as `.csv` file
 * Available in both Portable (require no installation) and Installer 
