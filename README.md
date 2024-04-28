@@ -40,7 +40,7 @@ Overall, MYPmanager is a useful tool for managing personal passwords and other s
 <b>Prerequisites</b>:
 
 * Your computer must be running Python3 or newer.
-* The script requires [pandas](https://pandas.pydata.org/docs/index.html) and [tabulate](https://pypi.org/project/tabulate/) libraries installed. </br>
+* The script requires [pandas](https://pandas.pydata.org/docs/index.html),[pwinput](https://pypi.org/project/pwinput/) and [tabulate](https://pypi.org/project/tabulate/) libraries installed. </br>
    - Open Terminal and run `pip install pandas` to install pandas library </br>
    - run `pip install tabulate` to install tabulate library</br>
   
