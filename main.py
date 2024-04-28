@@ -32,50 +32,47 @@ def clear():
     else:
         os.system('clear')
 
-
 def get_master_password():
-    
-    # Prompt the user to enter the master password
-    master_pass = pwinput(prompt ="\n Enter master password: ", mask="*")
-
-    # Process the master password
-    processed_password = ""
-    for char in master_pass:
-        if char.isalpha():
-            processed_password += str(ord(char.lower()) - 96)
+    while True:
+        master_pass = pwinput(prompt="\n Enter master password\n( Must have a minimum of 8 characters ):  ", mask="*")
+        print("")
+        if len(master_pass) >= 8:
+            break
         else:
-            processed_password += char
-
-    # Convert processed password to an integer
-    master_pass = int(processed_password.replace("-", ""))
-
+            print(textcolor.WARNING + '\n WARNING: Master password should be at least 8 characters long.' + textcolor.ENDC)
     return master_pass
 
 
 def encrypt(password, master_pass):
+    iteration_count = len(master_pass)
+    
     # Encrypt password string with master password
     encrypted_password = ""
     
-    for char in password:
-        if char in ALPHABET:
-            new_pos = (ALPHABET.find(char) + master_pass) % len(ALPHABET)
+    for i in range(len(password)):
+        shift = (ord(master_pass[i % len(master_pass)]) + i) % len(ALPHABET)
+        if password[i] in ALPHABET:
+            new_pos = (ALPHABET.find(password[i]) + shift) % len(ALPHABET)
             encrypted_password += ALPHABET[new_pos]
         else:
-            encrypted_password += char
+            encrypted_password += password[i]
     
     return encrypted_password
 
 
 def decrypt(encrypted_password, master_pass):
+    iteration_count = len(master_pass)
+    
     # Decrypt the encrypted password string with master password
     decrypted_password = ""
     
-    for char in encrypted_password:
-        if char in ALPHABET:
-            new_pos = (ALPHABET.find(char) - master_pass) % len(ALPHABET)
+    for i in range(len(encrypted_password)):
+        shift = (ord(master_pass[i % len(master_pass)]) + i) % len(ALPHABET)
+        if encrypted_password[i] in ALPHABET:
+            new_pos = (ALPHABET.find(encrypted_password[i]) - shift) % len(ALPHABET)
             decrypted_password += ALPHABET[new_pos]
         else:
-            decrypted_password += char
+            decrypted_password += encrypted_password[i]
     
     return decrypted_password
 
