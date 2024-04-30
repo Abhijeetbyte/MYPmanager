@@ -1,6 +1,6 @@
 ## Securing Communication with a Twist: A Simple Encryption Approach
 
-This project explores a basic encryption algorithm designed for local communication/standalone program. It prioritizes simplicity and avoids storing a master code, making it suitable for educational purposes and experimentation.
+This project explores a basic encryption algorithm designed for local communication/standalone programs. It prioritizes simplicity and avoids storing the master code.
 
 ### Encoding and Decoding with a Variable Shift
 
