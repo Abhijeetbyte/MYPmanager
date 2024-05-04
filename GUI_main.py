@@ -145,13 +145,12 @@ class App(customtkinter.CTk):
 
         data_file = os.path.isfile('data.csv')  # check whether data file is there or not
         if not data_file:  # if csv not found
-            self.create_csv()  # call function and create csv
+            #self.create_csv()  # call function and create csv
             # Initially show only the welcome frame
             print("Welcome \n")
             self.login_frame.grid_forget()
             self.sidebar_button_frame.grid_forget()
-            self.main_button_1.grid_forget()
-            self.entry.grid_forget()
+            self.entry_frame.grid_forget()
             self.textbox.grid_forget()
 
         else :
@@ -176,7 +175,7 @@ class App(customtkinter.CTk):
          print("Next button pressed\n") 
          self.welcome_frame.grid_forget() # forget frame
          self.sidebar_button_frame.grid_forget()
-         self.entry.grid_forget()
+         self.entry_frame.grid_forget()
          self.textbox.grid_forget()
          self.login_frame.grid(row=1, column=1, sticky="ns")  # show login frame
    
