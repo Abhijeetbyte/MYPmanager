@@ -24,6 +24,13 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure((2, 3), weight=0)
         self.grid_rowconfigure((0, 1, 2), weight=1)
 
+        # create footer frame 
+        self.footer_frame = customtkinter.CTkFrame(self, height=25,corner_radius=0, fg_color="#007ACC")
+        self.footer_frame.grid(row=3, column=1,padx=0, pady=(20, 0), sticky="ew")
+        self.footer_frame.grid_columnconfigure(0, weight=1)# center, fill space
+        self.footer_label = customtkinter.CTkLabel( master=self.footer_frame, text="Developed by Abhijeetbyte © 2024",text_color=("#FFFFFF"),font=("Arial", 12),justify="center" )
+        self.footer_label.grid(row=0, column=0,sticky="nsew")
+
         # create side frame
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, rowspan=5, sticky="nsew")
