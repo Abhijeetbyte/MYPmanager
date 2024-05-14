@@ -17,6 +17,9 @@ ALPHABET = string.ascii_letters + string.digits
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
+
+
+        #----------------------------------------GUI---------------------------
         
        
         # configure window
@@ -141,13 +144,15 @@ class App(customtkinter.CTk):
            
         else :
             self.login_event()#start with login frame
+            
+
+
+
+    #-------------------------------------GUIOperation----------------------------
 
             
 
-    operationMenu = 1 #global, varible to hold operation code
-        
-
-    def welcome_event(self):
+    def welcome_event(self): #bundel
          #Show only the welcome frame, by removing everything else
          print("Welcome \n")
          self.login_frame.grid_forget()
@@ -155,7 +160,7 @@ class App(customtkinter.CTk):
          self.entry_frame.grid_forget()
          self.textbox.grid_forget()
 
-    def login_event(self):
+    def login_event(self): #bundel
         # Show only the login frame
         print("Login \n")
         self.welcome_frame.grid_forget()# forget frame
@@ -164,13 +169,15 @@ class App(customtkinter.CTk):
         self.textbox.grid_forget()# forget frame
         self.login_frame.grid(row=1, column=1, sticky="ns")  # show login frame
         
-
-    def main_event(self):
+    def main_event(self): #bundel
+        print("Main menu\n") 
         self.welcome_frame.grid_forget()# forget frame (make sure)
         self.login_frame.grid_forget()  # forget frame (make sure)
         self.sidebar_button_frame.grid(row=0, column=0, rowspan=5, sticky="nsew")# show frame
         self.entry_frame.grid(row=0, column=1,padx=(20,0),pady=(20,0), sticky="nsew")# show frame
         self.textbox.grid(row=1, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")# show frame
+        self.add_button_event() # start with add menu
+        
         
         
     def welcome_button_event(self):
@@ -183,22 +190,18 @@ class App(customtkinter.CTk):
 
     def login_button_event(self):
         print("Login button pressed\n")
-        master_pass = self.masterpassword_entry.get() #fetch from entry box
-        print(master_pass,'\n')
-        if len(master_pass) >= 8: #if sucessfull, then move to main window
+        login_status = self.login_menu_op()# call, for check
+        if login_status:
             self.main_event()#call main window function
-            return master_pass
         else:
-            self.login_event() #do not preceded
+            self.login_event() #do not preceded,repet
             self.masterpassword_entry.delete(0,'end') #clear entry field 
-            print("WARNING: Master password must be at least 8 characters long\n")
-            #pass
         
     def back_button_event(self):
         print("Back button pressed\n")
         self.login_event() # call function to start with login window
         #clear entry field (make sure)
-        self.masterpassword_entry.delete(0,'end') #clear
+        self.masterpassword_entry.delete(0,'end')# clear
         self.entry_uname.delete(0,'end')
         self.entry_name.delete(0,'end')
         self.entry_password.delete(0,'end')
@@ -210,10 +213,11 @@ class App(customtkinter.CTk):
         self.entry_password.grid(row=3, column=0,  padx=20, pady=(5, 5))# add (make sure)
         self.entry_uname.grid(row=2, column=0,  padx=20, pady=(5, 5))# add
         self.entry_name.configure(placeholder_text="ENTER URL OR APP NAME, YOU WANT TO SAVE")# configure the placeholder text (make sure)
-        self.entry_uname.configure(placeholder_text="ENTER NAME/USERNAME, YOU WANT TO SAVE")# (make sure)
-        self.entry_password.configure(placeholder_text="ENTER PASSWORD, YOU WANT TO SAVE")  # (make sure)
+        self.entry_uname.configure(placeholder_text="ENTER NAME/USERNAME, YOU WANT TO SAVE")# configure the placeholder text (make sure)
+        self.entry_password.configure(placeholder_text="ENTER PASSWORD, YOU WANT TO SAVE")  # configure the placeholder text (make sure)
         self.operationMenu = 1 # varible to hold operation code
         self.textBox(text='') # clear box
+        self.entry_button.configure(command=self.add_menu_op) # call this function, when submit button is pressed
         
     def search_button_event(self):
         print("Search button pressed\n")
@@ -224,6 +228,7 @@ class App(customtkinter.CTk):
         self.operationMenu = 2
         print("HINT: Clicking the submit button will show all saved credentials.\n")
         self.textBox("HINT: Clicking the submit button will show all saved credentials")
+        self.entry_button.configure(command=self.search_menu_op) # call this function, when submit button is pressed
                 
         
     def edit_button_event(self):
@@ -235,6 +240,8 @@ class App(customtkinter.CTk):
         self.operationMenu = 3
         print("HINT: Clicking the submit button will show all saved credentials.\n")
         self.textBox("HINT: Clicking the submit button will show all saved credentials")
+        self.entry_button.configure(command=self.edit_menu_op) # call this function, when submit button is pressed
+          
 
     def delete_button_event(self):
         print("Delete button pressed\n")
@@ -242,12 +249,165 @@ class App(customtkinter.CTk):
         self.entry_uname.grid_forget()#remove
         self.entry_password.grid_forget()#remove
         self.entry_name.configure(placeholder_text="ENTER URL OR APP NAME, YOU WANT TO DELETE")# configure the placeholder text
-        self.operationMenu = 4
+        print("HINT: Clicking the submit button will show all saved credentials.\n")
+        self.textBox("HINT: Clicking the submit button will show all saved credentials")
+        self.entry_button.configure(command=self.delete_menu_op) # call this function, when submit button is pressed
+          
 
+
+
+
+    #----------------------------------MenuOperation----------------------------------
+
+    def login_menu_op(self):
+        master_pass = self.masterpassword_entry.get() #fetch from entry box
+        print("Checked master password: ", master_pass,'\n')
+        if len(master_pass) >= 8: #if sucessfull, then move to main window
+            return master_pass
+        else:
+            return False
+            print("WARNING: Master password must be at least 8 characters long\n")
+            #pass
         
 
 
-    #---------------------------------------------------------------------------
+    def add_menu_op(self): #when, entry button is presed under Add menu
+        print("Operation : Add\n")
+        nameVariable = self.entry_name.get() # fetch entry box inputs
+        unameVariable = self.entry_uname.get()
+        passwordVariable = self.entry_password.get()
+        masterpassVariable = self.login_menu_op() #call function, fetch
+        print("Adding: ",nameVariable,",",unameVariable,",", passwordVariable)
+        print("With: ",masterpassVariable,"\n")
+        if (unameVariable == ''):  # if found empty, replace it by 'Unavailable' label
+            unameVariable = 'UNAVAILABLE'
+        if (passwordVariable == ''):
+            passwordVariable = 'UNAVAILABLE'
+        if (nameVariable == ''): # URL/App name
+            print("WARNING: URL or App Name cannot be empty.\n")
+            self.textBox("WARNING : URL or App Name cannot be empty.")
+        else:
+            encrypted_pass = self.encrypt(passwordVariable, masterpassVariable)# call encrypt function to encrypt password
+            self.add(unameVariable, encrypted_pass, nameVariable)# call function to add user data
+            #clear entry box
+            self.entry_uname.delete(0,'end')
+            self.entry_name.delete(0,'end')
+            self.entry_password.delete(0,'end')
+
+            
+    def search_menu_op(self):
+        print("Operation : Search\n")
+        nameVariable = self.entry_name.get() # fetch entry box inputs
+        masterpassVariable = self.login_menu_op() #call function, fetch
+        print("Searching: ",nameVariable)
+        print("With: :",masterpassVariable , "\n")
+        show_result = self.search(masterpassVariable,nameVariable)# call function
+        show_tabulate = tabulate.tabulate(show_result, headers='keys', tablefmt='pipe', showindex=False)#Pretty Print
+        self.textBox(show_tabulate) # print in textbox area
+        #print(show_tabulate)
+        #clear entry box
+        self.entry_name.delete(0,'end')
+
+
+
+    def edit_menu_op(self):
+        print("Operation: Edit\n")
+        nameVariable = self.entry_name.get()  # fetch entry box inputs
+        masterpassVariable = self.login_menu_op()  # call function, fetch
+        print("Searching: ", nameVariable)
+        print("With: ", masterpassVariable, "\n")
+        show_result = self.search(masterpassVariable, nameVariable)  # call search function
+        show_tabulate = tabulate.tabulate(show_result, headers='keys', tablefmt='pipe', showindex=False)  # Pretty Print
+        self.textBox(show_tabulate)  # print in textbox area
+
+        if len(show_result) > 1:  # multiple credentials found, len = rows
+            print("Multiple credentials found, going for index\n")
+            self.entry_name.delete(0, 'end')  # clear entry box
+            self.entry_name.configure(placeholder_text="ENTER AN INDEX VALUE, YOU WANT TO EDIT")  # change the placeholder text
+            self.entry_name.delete(0, 'end')  # clear entry box
+            self.entry_button.configure(command=lambda: self.edit_multi_index(show_result, masterpassVariable))  # call this function, to handle indexes, when submit button is pressed
+        else:
+            print("Single credential found\n")
+            indexVariable = show_result.index.values[0]  # take default index
+            print("Default Index input:", indexVariable, "\n")
+            self.entry_password.grid(row=3, column=0, padx=20, pady=(5, 5))  # add
+            self.entry_uname.grid(row=2, column=0, padx=20, pady=(5, 5))  # add
+            self.entry_uname.configure(placeholder_text="ENTER NEW NAME/USERNAME")  # change the placeholder text
+            self.entry_password.configure(placeholder_text="ENTER NEW PASSWORD")  # change the placeholder text
+            self.entry_button.configure(command=lambda: self.edit_new_input(show_result, masterpassVariable, indexVariable))  # call this function, to handle indexes, when submit button is pressed
+
+    def edit_multi_index(self, show_result, masterpassVariable): #part of edit_menu_op()
+        print("Operation: Edit Index \n")
+        indexVariable = self.entry_name.get()  # fetch index input
+        print("Index input:", indexVariable, "\n")
+        if indexVariable:  # not empty
+            indexVariable = int(indexVariable)
+            self.entry_password.grid(row=3, column=0, padx=20, pady=(5, 5))  # add
+            self.entry_uname.grid(row=2, column=0, padx=20, pady=(5, 5))  # add
+            self.entry_uname.configure(placeholder_text="ENTER NEW NAME/USERNAME")  # change the placeholder text
+            self.entry_password.configure(placeholder_text="ENTER NEW PASSWORD")  # change the placeholder text
+            self.entry_button.configure(command=lambda: self.edit_new_input(show_result, masterpassVariable, indexVariable))  # call this function, to handle indexes, when submit button is pressed
+
+    def edit_new_input(self, show_result, masterpassVariable, indexVariable): #part of edit_menu_op()
+        new_uameVariable = self.entry_uname.get()  # fetch entry box input
+        new_passwordVariable = self.entry_password.get()  # fetch entry box input
+        # exception
+        if not new_uameVariable:  # if found empty, take old data
+            old_name = show_result.loc[indexVariable, 'Username']  # index of that row, column id; get old Username
+            new_uameVariable = old_name
+        if not new_passwordVariable:
+            old_password = show_result.loc[indexVariable, 'Password']  # get old password
+            new_passwordVariable = old_password
+        print("New Username:", new_uameVariable, ", New Password:", new_passwordVariable,"\n")
+        new_passwordVariable = self.encrypt(new_passwordVariable, masterpassVariable)  # call function, to encrypted
+        self.edit(indexVariable, new_uameVariable, new_passwordVariable)  # call edit function
+        # clear entry box
+        self.entry_uname.delete(0, 'end')
+        self.entry_name.delete(0, 'end')
+        self.entry_password.delete(0, 'end')
+        self.edit_button_event()  # reset
+
+
+
+    
+    def delete_menu_op(self):
+        print("Operation: Delete\n")
+        nameVariable = self.entry_name.get()  # fetch entry box inputs
+        masterpassVariable = self.login_menu_op()  # call function, fetch
+        print("Searching: ", nameVariable)
+        print("With: ", masterpassVariable, "\n")
+        show_result = self.search(masterpassVariable, nameVariable)  # call search function
+        show_tabulate = tabulate.tabulate(show_result, headers='keys', tablefmt='pipe', showindex=False)  # Pretty Print
+        self.textBox(show_tabulate)  # print in textbox area
+
+        if len(show_result) > 1:  # multiple credentials found, len = rows
+            print("Multiple credentials found, going for index\n")
+            self.entry_name.delete(0, 'end')  # clear entry box
+            self.entry_name.configure(placeholder_text="ENTER AN INDEX VALUE, YOU WANT TO DELETE")  # change the placeholder text
+            #self.entry_name.delete(0, 'end')  # clear entry box
+            self.entry_button.configure(command=lambda: self.delete_multi_index(show_result, masterpassVariable))  # call this function, to handle indexes, when submit button is pressed
+        else:
+            print("Single credential found\n")
+            indexVariable = show_result.index.values[0]  # take default index
+            print("Default Index input:", indexVariable, "\n")
+            self.delete(indexVariable)# call delete function
+            
+    def delete_multi_index(self, show_result, masterpassVariable): #part of edit_menu_op()
+        print("Operation: Edit Index \n")
+        indexVariable = self.entry_name.get()  # fetch index input
+        print("Index input:", indexVariable, "\n")
+        if indexVariable:  # not empty
+            indexVariable = int(indexVariable)
+            self.delete(indexVariable)# call delete function
+             # clear entry box
+            self.entry_name.delete(0, 'end')
+            #self.delete_button_event()  # reset
+            
+
+
+    
+
+    #--------------------------------Backend-------------------------------------------
 
     def textBox(self, text):
          self.textbox.delete("0.0", "end")  # delete all text
@@ -263,10 +423,8 @@ class App(customtkinter.CTk):
 
     def encrypt(self, password, master_pass):
         iteration_count = len(master_pass)
-        
         # Encrypt password string with master password
         encrypted_password = ""
-        
         for i in range(len(password)):
             shift = (ord(master_pass[i % len(master_pass)]) + i) % len(ALPHABET)
             if password[i] in ALPHABET:
@@ -278,13 +436,10 @@ class App(customtkinter.CTk):
         return encrypted_password
 
     
-    
     def decrypt(self, encrypted_password, master_pass):
         iteration_count = len(master_pass)
-
         # Decrypt the encrypted password string with master password
         decrypted_password = ""
-        
         for i in range(len(encrypted_password)):
             shift = (ord(master_pass[i % len(master_pass)]) + i) % len(ALPHABET)
             if encrypted_password[i] in ALPHABET:
@@ -295,32 +450,28 @@ class App(customtkinter.CTk):
         
         return decrypted_password
 
-            
 
     def add(self, name, encrypted_pass, url):
-        user_data = {'Url/App name': [url], 'Username': [name],'Password': [encrypted_pass]}# will save in same order (,) to csv file
+        user_data = {'Url/App name': [url], 'Username': [name],'Password': [encrypted_pass]}# will save in same order
         df = pd.DataFrame(user_data)  # pack user data into data frame
         df.to_csv('data.csv', mode='a', header=False, index=False)# save to CSV file, append new row
+        print("Credentials Added Successfully.","\n")
         self.textBox("Credentials Added Successfully.\n")
-
-
+        self.backup()#call function
 
 
     def search(self, master_pass, url=''):
         # Extract form CSV file
         df = pd.read_csv('data.csv')
-
-        dfS = df[df['Url/App name'].str.contains(url, na=False, case=False)]  # pass a string (word) to search like or related words in dataframe
+        dfS = df[df['Url/App name'].str.contains(url, na=False, case=False)]# pass the string to search related words
         # if on argument were pass (url='') ,then it will fetch entire dataframe
         # print(dfS)
         index_d = dfS.index.values  # take default index
-
         # Logic/Sontrol str. to decrypt all found passwords
         password = []  # empty list to store decrypted password from for loop data
         dfS = dfS.reset_index()  # make sure indexes pair with number of row
         for index, row in dfS.iterrows():  # iterate over all rows
-
-            found_password = dfS.loc[index, 'Password']  # go through all the rows of Password column ; get passwords
+            found_password = dfS.loc[index, 'Password']# go through all the rows of column
             dec_password = self.decrypt(found_password,  master_pass)  # decrypt that
             password.append(dec_password)
 
@@ -328,15 +479,43 @@ class App(customtkinter.CTk):
         dfS['Password'] = password  # update password column with decrypted passwords
 
         return dfS
+    
 
 
+    def edit(self, index, new_name, new_password):
+        df = pd.read_csv("data.csv")  # using 0th column (Url) as index
+        # Edit row at given 'index'
+        df.loc[index, ['Username', 'Password']] = [new_name, new_password]  # replace it with new user data
+        df.to_csv('data.csv', index=False)  # save it
+        print("Credentials Edited Successfully.","\n")
+        self.textBox("Credentials Edited Successfully.\n")
+        self.backup()#call function
+      
 
 
+    def delete(self, index):
+        df = pd.read_csv("data.csv")
+        # Delete row at given 'index'
+        df.drop([index], axis=0, inplace=True)
+        df.to_csv('data.csv', index=False)  # save it
+        print("Credentials Deleted Successfully.","\n")
+        self.textBox("Credentials Deleted Successfully.\n")
+        self.backup()#call function
+      
 
 
+    def backup(self):
+        df = pd.read_csv("data.csv")  # read the orignal file
+        dp = os.getcwd()  # get the default path, initial directory
+        os.chdir("..")  # change the current working directory, one dir back
+        cp = os.getcwd()  # get the current path
+        cp = cp + "\MYPmanager_Backup\data.csv"  # add FolderName & FileName to obtained path
+        if not os.path.isdir('MYPmanager_Backup'):  # If 'BackupMYPmanager' not exists
+            os.makedirs('MYPmanager_Backup')  # Create one, for back up
+        df.to_csv(cp, index=False)  # save a copy of same, cp = path
+        os.chdir(dp)  # Restoring the default path
 
 
-        
 
     def entry_button_event(self):
         print("Entry button pressed\n")
@@ -345,68 +524,9 @@ class App(customtkinter.CTk):
 
 
         if (self.operationMenu == 1):
-            print("Operation : Add\n")
-            nameVariable = self.entry_name.get() # fetch entry box inputs
-            unameVariable = self.entry_uname.get()
-            passwordVariable = self.entry_password.get()
-            print(nameVariable,',',unameVariable,',', passwordVariable)
-            masterpassVariable = self.login_button_event() #fetch
-            print(masterpassVariable)
-            
-            if (unameVariable == ''):  # if found empty, replace it by 'Unavailable' label
-                unameVariable = 'UNAVAILABLE'
-            if (passwordVariable == ''):
-                passwordVariable = 'UNAVAILABLE'
-            if (nameVariable == ''): # URL/App name
-                print("WARNING: URL or App Name cannot be empty.\n")
-                self.textBox("WARNING : URL or App Name cannot be empty.")
-            else:
-                encrypted_pass = self.encrypt(passwordVariable, masterpassVariable)# call encrypt function to encrypt password
-                self.add(unameVariable, encrypted_pass, nameVariable)# call function to add user data
-                #clear entry box
-                self.entry_uname.delete(0,'end')
-                self.entry_name.delete(0,'end')
-                self.entry_password.delete(0,'end')
+            pass
 
-                
-
-
-        elif (self.operationMenu == 2):
-            print("Operation : Search\n")
-            nameVariable = self.entry_name.get() # fetch entry box inputs
-            print(nameVariable)
-            masterpassVariable = self.login_button_event() #fetch
-            print(masterpassVariable)
-            show_result = self.search(masterpassVariable,nameVariable)# call function
-            show_tabulate = tabulate.tabulate(show_result, headers='keys', tablefmt='pipe', showindex=False)#Pretty Print
-            self.textBox(show_tabulate) # print in textbox area
-            #print(show_tabulate)
-            #clear entry box
-            self.entry_name.delete(0,'end')
-
-
-
-
-        elif (self.operationMenu == 3):
-            print("Operation: Edit\n")
-            nameVariable = self.entry_name.get()  # fetch entry box input
-            print("Entry input: ", nameVariable, '\n')
-            masterpassVariable = self.login_button_event()  # fetch
-            print("Master Pass: ", masterpassVariable, '\n')
-            
-            show_result = self.search(masterpassVariable, nameVariable)  # call search function
-            show_tabulate = tabulate.tabulate(show_result, headers='keys', tablefmt='pipe', showindex=False)  # Pretty Print
-            self.textBox(show_tabulate)  # print in textbox area
-            self.entry_name.delete(0, 'end')  # clear entry box
-
-           
-
-
-               
-
-
-
-    
+ 
 
 
 if __name__ == "__main__":
