@@ -100,24 +100,29 @@ class App(customtkinter.CTk):
         self.appearance_mode_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 10))
 
         
-        # create main entry and button
+        # create main entry field and button
         self.entry_frame = customtkinter.CTkFrame(self,width=250)
         self.entry_frame.grid(row=0, column=1,padx=(20,0),pady=(20,0), sticky="nsew")
-        
         self.entry_label = customtkinter.CTkLabel(self.entry_frame, text="Add your credentials: ", font=customtkinter.CTkFont(size=16))
-        self.entry_label.grid(row=0, column=0, padx=20, pady=(20, 10))
+        self.entry_label.grid(row=0, column=1, padx=20, pady=(20, 10))
+                              
+        self.label_name = customtkinter.CTkLabel(self.entry_frame, text="ENTER URL OR APP NAME, YOU WANT TO SAVE: ",justify="right",anchor="e",width=350, font=customtkinter.CTkFont(size=14))
+        self.label_name.grid(row=1, column=0, padx=(20,5), pady=(5, 5))
+        self.entry_name = customtkinter.CTkEntry(master=self.entry_frame,width=350,height=40,border_width=1)
+        self.entry_name.grid(row=1, column=1, padx=5, pady=(5, 5))
+
+        self.label_uname = customtkinter.CTkLabel(self.entry_frame, text="ENTER NAME/USERNAME, YOU WANT TO SAVE: ",justify="right",anchor="e",width=350, font=customtkinter.CTkFont(size=14))
+        self.label_uname.grid(row=2, column=0, padx=(20,5), pady=(5, 5))
+        self.entry_uname = customtkinter.CTkEntry(master=self.entry_frame, width=350,height=40,border_width=1)
+        self.entry_uname.grid(row=2, column=1,  padx=5, pady=(5, 5))
         
-        self.entry_name = customtkinter.CTkEntry(master=self.entry_frame,width=350,height=40,border_width=1, placeholder_text="ENTER URL OR APP NAME, YOU WANT TO SAVE")
-        self.entry_name.grid(row=1, column=0, padx=20, pady=(5, 5))
-        
-        self.entry_uname = customtkinter.CTkEntry(master=self.entry_frame, width=350,height=40,border_width=1,placeholder_text="ENTER NAME/USERNAME, YOU WANT TO SAVE")
-        self.entry_uname.grid(row=2, column=0,  padx=20, pady=(5, 5))
-        
-        self.entry_password = customtkinter.CTkEntry(master=self.entry_frame,width=350,height=40,border_width=1, show="*", placeholder_text="ENTER PASSWORD, YOU WANT TO SAVE")
-        self.entry_password.grid(row=3, column=0,  padx=20, pady=(5, 5))
+        self.label_password = customtkinter.CTkLabel(self.entry_frame, text="ENTER PASSWORD, YOU WANT TO SAVE: ",justify="right",anchor="e",width=350, font=customtkinter.CTkFont(size=14))
+        self.label_password.grid(row=3, column=0, padx=(20,20), pady=(5, 5))
+        self.entry_password = customtkinter.CTkEntry(master=self.entry_frame,width=350,height=40,border_width=1, show="*")
+        self.entry_password.grid(row=3, column=1,  padx=5, pady=(5, 5))
         
         self.entry_button = customtkinter.CTkButton(self.entry_frame, text="Submit", command=self.entry_button_event)
-        self.entry_button.grid(row=4, column=0, padx=30, pady=(10, 10))
+        self.entry_button.grid(row=4, column=1, padx=30, pady=(10, 10))
 
         # create textbox
         self.textbox = customtkinter.CTkTextbox(self, width=400,
@@ -134,6 +139,7 @@ class App(customtkinter.CTk):
         # set default values
         self.appearance_mode_optionemenu.set("Light")
         self.textBox(text='') # text box (clear)
+      
        
         
     
@@ -200,32 +206,41 @@ class App(customtkinter.CTk):
     def back_button_event(self):
         print("Back button pressed\n")
         self.login_event() # call function to start with login window
-        #clear entry field (make sure)
+        # clear entry field
         self.masterpassword_entry.delete(0,'end')# clear
-        self.entry_uname.delete(0,'end')
-        self.entry_name.delete(0,'end')
-        self.entry_password.delete(0,'end')
+        self.entry_name.delete(0, 'end')
+        self.entry_uname.delete(0, 'end')
+        self.entry_name.delete(0, 'end')
         self.textBox(text='') # text box (clear)
 
     def add_button_event(self):
         print("Add button pressed\n")      
         self.entry_label.configure(text="Add your credentials: ")#label
-        self.entry_password.grid(row=3, column=0,  padx=20, pady=(5, 5))# add (make sure)
-        self.entry_uname.grid(row=2, column=0,  padx=20, pady=(5, 5))# add
-        self.entry_name.configure(placeholder_text="ENTER URL OR APP NAME, YOU WANT TO SAVE")# configure the placeholder text (make sure)
-        self.entry_uname.configure(placeholder_text="ENTER NAME/USERNAME, YOU WANT TO SAVE")# configure the placeholder text (make sure)
-        self.entry_password.configure(placeholder_text="ENTER PASSWORD, YOU WANT TO SAVE")  # configure the placeholder text (make sure)
-        self.operationMenu = 1 # varible to hold operation code
+        self.label_name.grid(row=1, column=0, padx=(20,5), pady=(5, 5)) #add label
+        self.label_uname.grid(row=2, column=0, padx=(20,5), pady=(5, 5)) #add label
+        self.label_password.grid(row=3, column=0, padx=(20,5), pady=(5, 5)) #add label
+        self.label_name.configure(text="ENTER URL OR APP NAME, YOU WANT TO SAVE: ")#changelabel
+        self.label_uname.configure(text="ENTER NAME/USERNAME, YOU WANT TO SAVE: ")#change label
+        self.label_password.configure(text="ENTER PASSWORD, YOU WANT TO SAVE")#change label
+        self.entry_password.grid(row=3, column=1,  padx=20, pady=(5, 5))# add (make sure)
+        self.entry_uname.grid(row=2, column=1,  padx=20, pady=(5, 5))# add
+        # clear entry field
+        self.entry_name.delete(0, 'end')
+        self.entry_uname.delete(0, 'end')
+        self.entry_password.delete(0, 'end')
         self.textBox(text='') # clear box
         self.entry_button.configure(command=self.add_menu_op) # call this function, when submit button is pressed
         
     def search_button_event(self):
         print("Search button pressed\n")
         self.entry_label.configure(text="Search your credentials: ")#label
+        self.label_uname.grid_forget()#remove
+        self.label_password.grid_forget()#remove
         self.entry_uname.grid_forget()# remove
         self.entry_password.grid_forget()# remove
-        self.entry_name.configure(placeholder_text="ENTER URL OR APP NAME, YOU WANT TO SEARCH")# configure the placeholder text
-        self.operationMenu = 2
+        # clear entry field
+        self.entry_name.delete(0, 'end')
+        self.label_name.configure(text="ENTER URL OR APP NAME, YOU WANT TO SEARCH: ")#configure the label text
         print("HINT: Clicking the submit button will show all saved credentials.\n")
         self.textBox("HINT: Clicking the submit button will show all saved credentials")
         self.entry_button.configure(command=self.search_menu_op) # call this function, when submit button is pressed
@@ -234,10 +249,15 @@ class App(customtkinter.CTk):
     def edit_button_event(self):
         print("Edit button pressed\n")
         self.entry_label.configure(text="Edit your credentials: ")#label
+        self.label_uname.grid_forget()#remove
+        self.label_password.grid_forget()#remove
         self.entry_uname.grid_forget()#remove
         self.entry_password.grid_forget()#remove
-        self.entry_name.configure(placeholder_text="ENTER URL OR APP NAME, YOU WANT TO EDIT")# configure the placeholder text
-        self.operationMenu = 3
+        # clear entry field
+        self.entry_name.delete(0, 'end')
+        self.entry_uname.delete(0, 'end')
+        self.entry_password.delete(0, 'end')
+        self.label_name.configure(text="ENTER URL OR APP NAME, YOU WANT TO EDIT: ")#configure the label text
         print("HINT: Clicking the submit button will show all saved credentials.\n")
         self.textBox("HINT: Clicking the submit button will show all saved credentials")
         self.entry_button.configure(command=self.edit_menu_op) # call this function, when submit button is pressed
@@ -246,9 +266,13 @@ class App(customtkinter.CTk):
     def delete_button_event(self):
         print("Delete button pressed\n")
         self.entry_label.configure(text="Delete your credentials: ")#label
+        self.label_uname.grid_forget()#remove
+        self.label_password.grid_forget()#remove
         self.entry_uname.grid_forget()#remove
         self.entry_password.grid_forget()#remove
-        self.entry_name.configure(placeholder_text="ENTER URL OR APP NAME, YOU WANT TO DELETE")# configure the placeholder text
+        # clear entry field
+        self.entry_name.delete(0, 'end')
+        self.label_name.configure(text="ENTER URL OR APP NAME, YOU WANT TO DELETE: ")#configure the label text
         print("HINT: Clicking the submit button will show all saved credentials.\n")
         self.textBox("HINT: Clicking the submit button will show all saved credentials")
         self.entry_button.configure(command=self.delete_menu_op) # call this function, when submit button is pressed
@@ -307,6 +331,7 @@ class App(customtkinter.CTk):
         #print(show_tabulate)
         #clear entry box
         self.entry_name.delete(0,'end')
+   
 
 
 
@@ -322,18 +347,18 @@ class App(customtkinter.CTk):
 
         if len(show_result) > 1:  # multiple credentials found, len = rows
             print("Multiple credentials found, going for index\n")
-            self.entry_name.delete(0, 'end')  # clear entry box
-            self.entry_name.configure(placeholder_text="ENTER AN INDEX VALUE, YOU WANT TO EDIT")  # change the placeholder text
-            self.entry_name.delete(0, 'end')  # clear entry box
+            self.label_name.configure(text="ENTER AN INDEX VALUE, YOU WANT TO EDIT: ")#change label
             self.entry_button.configure(command=lambda: self.edit_multi_index(show_result, masterpassVariable))  # call this function, to handle indexes, when submit button is pressed
         else:
             print("Single credential found\n")
             indexVariable = show_result.index.values[0]  # take default index
             print("Default Index input:", indexVariable, "\n")
-            self.entry_password.grid(row=3, column=0, padx=20, pady=(5, 5))  # add
-            self.entry_uname.grid(row=2, column=0, padx=20, pady=(5, 5))  # add
-            self.entry_uname.configure(placeholder_text="ENTER NEW NAME/USERNAME")  # change the placeholder text
-            self.entry_password.configure(placeholder_text="ENTER NEW PASSWORD")  # change the placeholder text
+            self.entry_uname.grid(row=2, column=1, padx=20, pady=(5, 5))  # add
+            self.entry_password.grid(row=3, column=1, padx=20, pady=(5, 5))  # add
+            self.label_uname.grid(row=2, column=0, padx=(20,5), pady=(5, 5)) #add label
+            self.label_password.grid(row=3, column=0, padx=(20,5), pady=(5, 5)) #add label
+            self.label_uname.configure(text="ENTER NEW NAME/USERNAME: ")#change label
+            self.label_password.configure(text="ENTER NEW PASSWORD: ")#change label
             self.entry_button.configure(command=lambda: self.edit_new_input(show_result, masterpassVariable, indexVariable))  # call this function, to handle indexes, when submit button is pressed
 
     def edit_multi_index(self, show_result, masterpassVariable): #part of edit_menu_op()
@@ -342,10 +367,12 @@ class App(customtkinter.CTk):
         print("Index input:", indexVariable, "\n")
         if indexVariable:  # not empty
             indexVariable = int(indexVariable)
-            self.entry_password.grid(row=3, column=0, padx=20, pady=(5, 5))  # add
-            self.entry_uname.grid(row=2, column=0, padx=20, pady=(5, 5))  # add
-            self.entry_uname.configure(placeholder_text="ENTER NEW NAME/USERNAME")  # change the placeholder text
-            self.entry_password.configure(placeholder_text="ENTER NEW PASSWORD")  # change the placeholder text
+            self.entry_uname.grid(row=2, column=1, padx=20, pady=(5, 5))  # add
+            self.entry_password.grid(row=3, column=1, padx=20, pady=(5, 5))  # add
+            self.label_uname.grid(row=2, column=0, padx=(20,5), pady=(5, 5)) #add label
+            self.label_password.grid(row=3, column=0, padx=(20,5), pady=(5, 5)) #add label
+            self.label_uname.configure(text="ENTER NEW NAME/USERNAME: ")#change label
+            self.label_password.configure(text="ENTER NEW PASSWORD: ")#change label
             self.entry_button.configure(command=lambda: self.edit_new_input(show_result, masterpassVariable, indexVariable))  # call this function, to handle indexes, when submit button is pressed
 
     def edit_new_input(self, show_result, masterpassVariable, indexVariable): #part of edit_menu_op()
@@ -361,14 +388,18 @@ class App(customtkinter.CTk):
         print("New Username:", new_uameVariable, ", New Password:", new_passwordVariable,"\n")
         new_passwordVariable = self.encrypt(new_passwordVariable, masterpassVariable)  # call function, to encrypted
         self.edit(indexVariable, new_uameVariable, new_passwordVariable)  # call edit function
-        # clear entry box
+        # clear entry field
         self.entry_uname.delete(0, 'end')
         self.entry_name.delete(0, 'end')
         self.entry_password.delete(0, 'end')
-        self.edit_button_event()  # reset
+        self.label_uname.grid_forget()#remove
+        self.label_password.grid_forget()#remove
+        self.entry_uname.grid_forget()#remove
+        self.entry_password.grid_forget()#remove
+        self.entry_button.configure(command=self.edit_menu_op) # call this function, when submit button is pressed
 
 
-
+      
     
     def delete_menu_op(self):
         print("Operation: Delete\n")
@@ -382,15 +413,24 @@ class App(customtkinter.CTk):
 
         if len(show_result) > 1:  # multiple credentials found, len = rows
             print("Multiple credentials found, going for index\n")
-            self.entry_name.delete(0, 'end')  # clear entry box
-            self.entry_name.configure(placeholder_text="ENTER AN INDEX VALUE, YOU WANT TO DELETE")  # change the placeholder text
-            #self.entry_name.delete(0, 'end')  # clear entry box
+            self.label_name.configure(text="ENTER AN INDEX VALUE, YOU WANT TO DELETE: ")#change label
             self.entry_button.configure(command=lambda: self.delete_multi_index(show_result, masterpassVariable))  # call this function, to handle indexes, when submit button is pressed
         else:
             print("Single credential found\n")
             indexVariable = show_result.index.values[0]  # take default index
             print("Default Index input:", indexVariable, "\n")
-            self.delete(indexVariable)# call delete function
+            self.delete_dialog = customtkinter.CTkInputDialog(text="Type 'Yes' to confirm delete", title="Do you want to delete?")
+            confirm = self.delete_dialog.get_input()
+            print("Confirm: " ,confirm)
+            if confirm in ["Yes", "yes"]:
+                self.delete(indexVariable)# call delete function
+            else:
+                self.textBox("Delete  Cancelled ")
+
+            # clear entry box
+            self.entry_name.delete(0, 'end')
+            self.label_name.configure(text="ENTER AN INDEX VALUE, YOU WANT TO DELETE: ")#change label
+       
             
     def delete_multi_index(self, show_result, masterpassVariable): #part of edit_menu_op()
         print("Operation: Edit Index \n")
@@ -398,10 +438,20 @@ class App(customtkinter.CTk):
         print("Index input:", indexVariable, "\n")
         if indexVariable:  # not empty
             indexVariable = int(indexVariable)
-            self.delete(indexVariable)# call delete function
+            self.delete_dialog = customtkinter.CTkInputDialog(text="Type 'Yes' to confirm delete", title="Do you want to delete?")
+            confirm = self.delete_dialog.get_input()
+            print("Confirm: " ,confirm)
+            if confirm in ["Yes", "yes"]:
+                self.delete(indexVariable)# call delete function
+            else:
+                self.textBox("Delete  Cancelled ")
              # clear entry box
             self.entry_name.delete(0, 'end')
-            #self.delete_button_event()  # reset
+            self.label_name.configure(text="ENTER AN INDEX VALUE, YOU WANT TO DELETE: ")#change label
+            self.entry_button.configure(command=self.edit_menu_op) # call this function, when submit button is pressed
+
+            
+            
             
 
 
@@ -410,8 +460,10 @@ class App(customtkinter.CTk):
     #--------------------------------Backend-------------------------------------------
 
     def textBox(self, text):
+         self.textbox.configure(state="normal")  # configure textbox to be normal
          self.textbox.delete("0.0", "end")  # delete all text
          self.textbox.insert("0.0",text)
+         self.textbox.configure(state="disabled")  # configure textbox to be read-only
 
             
     def create_csv(self):
