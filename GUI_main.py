@@ -121,7 +121,7 @@ class App(customtkinter.CTk):
         self.entry_password = customtkinter.CTkEntry(master=self.entry_frame,width=350,height=40,border_width=1, show="*")
         self.entry_password.grid(row=3, column=1,  padx=5, pady=(5, 5))
         
-        self.entry_button = customtkinter.CTkButton(self.entry_frame, text="Submit", command=self.entry_button_event)
+        self.entry_button = customtkinter.CTkButton(self.entry_frame, text="Submit") #entry field submit button, no initial command
         self.entry_button.grid(row=4, column=1, padx=30, pady=(10, 10))
 
         # create textbox
@@ -555,30 +555,17 @@ class App(customtkinter.CTk):
         self.backup()#call function
       
 
-
     def backup(self):
         df = pd.read_csv("data.csv")  # read the orignal file
         dp = os.getcwd()  # get the default path, initial directory
         os.chdir("..")  # change the current working directory, one dir back
         cp = os.getcwd()  # get the current path
-        cp = cp + "\MYPmanager_Backup\data.csv"  # add FolderName & FileName to obtained path
+        cp = cp + r"\MYPmanager_Backup\data.csv"  # add FolderName & FileName to obtained path
         if not os.path.isdir('MYPmanager_Backup'):  # If 'BackupMYPmanager' not exists
             os.makedirs('MYPmanager_Backup')  # Create one, for back up
         df.to_csv(cp, index=False)  # save a copy of same, cp = path
         os.chdir(dp)  # Restoring the default path
 
-
-
-    def entry_button_event(self):
-        print("Entry button pressed\n")
-        print("Operation Menu : ", self.operationMenu)# operation code
-
-
-
-        if (self.operationMenu == 1):
-            pass
-
- 
 
 
 if __name__ == "__main__":
