@@ -317,6 +317,7 @@ class App(customtkinter.CTk):
             self.entry_uname.delete(0,'end')
             self.entry_name.delete(0,'end')
             self.entry_password.delete(0,'end')
+            self.entry_button.configure(command=self.add_menu_op) # call this function, when submit button is pressed
 
             
     def search_menu_op(self):
@@ -331,6 +332,7 @@ class App(customtkinter.CTk):
         #print(show_tabulate)
         #clear entry box
         self.entry_name.delete(0,'end')
+        self.entry_button.configure(command=self.search_menu_op) # call this function, when submit button is pressed
    
 
 
@@ -396,6 +398,7 @@ class App(customtkinter.CTk):
         self.label_password.grid_forget()#remove
         self.entry_uname.grid_forget()#remove
         self.entry_password.grid_forget()#remove
+        self.label_name.configure(text="ENTER URL OR APP NAME, YOU WANT TO EDIT: ")#configure the label text
         self.entry_button.configure(command=self.edit_menu_op) # call this function, when submit button is pressed
 
 
@@ -426,10 +429,10 @@ class App(customtkinter.CTk):
                 self.delete(indexVariable)# call delete function
             else:
                 self.textBox("Delete  Cancelled ")
-
             # clear entry box
             self.entry_name.delete(0, 'end')
-            self.label_name.configure(text="ENTER AN INDEX VALUE, YOU WANT TO DELETE: ")#change label
+            self.label_name.configure(text="ENTER URL OR APP NAME, YOU WANT TO DELETE: ")#configure the label text
+            self.entry_button.configure(command=self.delete_menu_op) # call this function, when submit button is pressed
        
             
     def delete_multi_index(self, show_result, masterpassVariable): #part of edit_menu_op()
@@ -447,8 +450,8 @@ class App(customtkinter.CTk):
                 self.textBox("Delete  Cancelled ")
              # clear entry box
             self.entry_name.delete(0, 'end')
-            self.label_name.configure(text="ENTER AN INDEX VALUE, YOU WANT TO DELETE: ")#change label
-            self.entry_button.configure(command=self.edit_menu_op) # call this function, when submit button is pressed
+            self.label_name.configure(text="ENTER URL OR APP NAME, YOU WANT TO DELETE: ")#configure the label text
+            self.entry_button.configure(command=self.delete_menu_op) # call this function, when submit button is pressed
 
             
             
