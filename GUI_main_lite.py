@@ -450,7 +450,7 @@ class App(customtkinter.CTk):
                 self.textBox("Delete  Cancelled ")
              # clear entry box
             self.entry_name.delete(0, 'end')
-            self.label_name.configure(text="ENTER AN INDEX VALUE, YOU WANT TO DELETE: ")#change label
+            self.label_name.configure(text="ENTER URL OR APP NAME, YOU WANT TO DELETE: ")#change label
             self.entry_button.configure(command=self.delete_menu_op) # call this function, when submit button is pressed
 
             
