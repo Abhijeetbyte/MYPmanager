@@ -462,122 +462,176 @@ class App(customtkinter.CTk):
 
     #--------------------------------Backend-------------------------------------------
 
+ # Setting up our textbox to display messages
     def textBox(self, text):
-         self.textbox.configure(state="normal")  # configure textbox to be normal
-         self.textbox.delete("0.0", "end")  # delete all text
-         self.textbox.insert("0.0",text)
-         self.textbox.configure(state="disabled")  # configure textbox to be read-only
+        # Enable editing
+        self.textbox.configure(state="normal")
+        # Clear current text
+        self.textbox.delete("0.0", "end")
+        # Add new text
+        self.textbox.insert("0.0", text)
+        # Disable editing
+        self.textbox.configure(state="disabled")
 
-
+    # Creating a CSV file with headers
     def create_csv(self):
+        # Open file for writing
         with open('data.csv', mode='w', newline='') as file:
+            # Create a CSV writer
             writer = csv.writer(file)
+            # Write headers
             writer.writerow(['Index', 'Url/App name', 'Username', 'Password'])
         print("CSV created\n")
 
+    # Encrypting a password using a master password
     def encrypt(self, password, master_pass):
-        encrypted_password = ""
+        encrypted_password = ""  # Start with an empty string for the encrypted password
+        # Loop through each character in the password
         for i in range(len(password)):
+            # Calculate shift based on master password
             shift = (ord(master_pass[i % len(master_pass)]) + i) % len(ALPHABET)
+            # If the character is in our alphabet
             if password[i] in ALPHABET:
+                # Find the new position after shifting
                 new_pos = (ALPHABET.find(password[i]) + shift) % len(ALPHABET)
+                # Append the encrypted character
                 encrypted_password += ALPHABET[new_pos]
             else:
+                # Keep non-alphabet characters as they are
                 encrypted_password += password[i]
-
         return encrypted_password
 
+    # Decrypting a password using a master password
     def decrypt(self, encrypted_password, master_pass):
-        decrypted_password = ""
+        decrypted_password = ""  # Start with an empty string for the decrypted password
+        # Loop through each character in the encrypted password
         for i in range(len(encrypted_password)):
+            # Calculate shift based on master password
             shift = (ord(master_pass[i % len(master_pass)]) + i) % len(ALPHABET)
+            # If the character is in our alphabet
             if encrypted_password[i] in ALPHABET:
+                # Find the original position after shifting
                 new_pos = (ALPHABET.find(encrypted_password[i]) - shift) % len(ALPHABET)
+                # Append the decrypted character
                 decrypted_password += ALPHABET[new_pos]
             else:
+                # Keep non-alphabet characters as they are
                 decrypted_password += encrypted_password[i]
-
         return decrypted_password
 
+    # Getting the index for the next entry in the CSV
     def get_next_index(self):
         try:
+            # Try opening the CSV file
             with open('data.csv', mode='r') as file:
+                # Create a CSV reader
                 reader = csv.reader(file)
+                # Read all rows
                 rows = list(reader)
+                # If there are more than just the header row
                 if len(rows) > 1:
+                    # Get the index from the last row and increment
                     last_index = int(rows[-1][0])
                     return last_index + 1
                 else:
+                    # Start from index 1 if no data rows
                     return 1
         except FileNotFoundError:
+            # Start from index 1 if file not found
             return 1
 
+    # Adding a new entry to the CSV
     def add(self, name, encrypted_pass, url):
-        index = self.get_next_index()
+        index = self.get_next_index()  # Get the next available index
+        # Open CSV file for appending
         with open('data.csv', mode='a', newline='') as file:
+            # Create a CSV writer
             writer = csv.writer(file)
+            # Write the new entry
             writer.writerow([index, url, name, encrypted_pass])
         print("Credentials Added Successfully.\n")
         self.textBox("Credentials Added Successfully.\n")
-        self.backup()  # call function
+        self.backup()  # Create a backup of the CSV
 
+    # Searching for entries in the CSV by URL/app name and decrypting passwords
     def search(self, master_pass, url=''):
-        results = []
+        results = []  # Store search results here
+        # Open CSV file for reading
         with open('data.csv', mode='r') as file:
+            # Create a CSV DictReader
             reader = csv.DictReader(file)
+            # Iterate over each row
             for row in reader:
+                # Check if URL/app name matches search query
                 if url.lower() in row['Url/App name'].lower():
+                    # Decrypt password and append row to results
                     row['Password'] = self.decrypt(row['Password'], master_pass)
                     results.append(row)
         return results
 
+    # Editing an existing entry in the CSV
     def edit(self, index, new_name, new_password):
-        rows = []
+        rows = []  # Store all rows here
+        # Open CSV file for reading
         with open('data.csv', mode='r') as file:
+            # Create a CSV reader
             reader = csv.reader(file)
+            # Read all rows into the list
             rows = list(reader)
 
+        # Iterate over each row
         for row in rows:
+            # If index matches, update name and password
             if row[0] == str(index):
                 row[2] = new_name
                 row[3] = new_password
 
+        # Open CSV file for writing
         with open('data.csv', mode='w', newline='') as file:
+            # Create a CSV writer
             writer = csv.writer(file)
+            # Write all rows back to the file
             writer.writerows(rows)
 
         print("Credentials Edited Successfully.\n")
         self.textBox("Credentials Edited Successfully.\n")
-        self.backup()  # call function
+        self.backup()  # Create a backup of the CSV
 
+    # Deleting an entry from the CSV by index
     def delete(self, index):
-        rows = []
+        rows = []  # Store all rows here
+        # Open CSV file for reading
         with open('data.csv', mode='r') as file:
+            # Create a CSV reader
             reader = csv.reader(file)
+            # Read all rows into the list
             rows = list(reader)
 
+        # Filter out the row to delete
         rows = [row for row in rows if row[0] != str(index)]
 
+        # Open CSV file for writing
         with open('data.csv', mode='w', newline='') as file:
+            # Create a CSV writer
             writer = csv.writer(file)
+            # Write remaining rows back to the file
             writer.writerows(rows)
 
         print("Credentials Deleted Successfully.\n")
         self.textBox("Credentials Deleted Successfully.\n")
-        self.backup()  # call function
+        self.backup()  # Create a backup of the CSV
 
+    # Creating a backup of the CSV file
     def backup(self):
+        # Read all data from the CSV file
         with open("data.csv", mode='r') as file:
             data = file.read()
-        dp = os.getcwd()  # get the default path, initial directory
-        os.chdir("..")  # change the current working directory, one dir back
-        cp = os.path.join(os.getcwd(), "MYPmanager_Backup", "data.csv")  # create path for backup
-        if not os.path.isdir('MYPmanager_Backup'):  # If 'BackupMYPmanager' not exists
-            os.makedirs('MYPmanager_Backup')  # Create one, for back up
-        with open(cp, mode='w') as file:
-            file.write(data)
-        os.chdir(dp)  # Restoring the default path
-
+        # Get the current working directory
+        dp = os.getcwd()
+        # Move to the parent directory
+        os.chdir("..")
+        # Create path for backup
+        cp = os.path.join
         
 
 if __name__ == "__main__":
