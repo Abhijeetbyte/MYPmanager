@@ -460,18 +460,14 @@ class App(customtkinter.CTk):
 
     
 
-    #--------------------------------Backend-------------------------------------------
+ #--------------------------------Backend-------------------------------------------
 
- # Setting up our textbox to display messages
+ # Setting up the textbox to display messages
     def textBox(self, text):
-        # Enable editing
         self.textbox.configure(state="normal")
-        # Clear current text
-        self.textbox.delete("0.0", "end")
-        # Add new text
-        self.textbox.insert("0.0", text)
-        # Disable editing
-        self.textbox.configure(state="disabled")
+        self.textbox.delete("0.0", "end") # Clear
+        self.textbox.insert("0.0", text)    # Add new text
+        self.textbox.configure(state="disabled")# Disable 
 
     # Creating a CSV file with headers
     def create_csv(self):
@@ -490,14 +486,14 @@ class App(customtkinter.CTk):
         for i in range(len(password)):
             # Calculate shift based on master password
             shift = (ord(master_pass[i % len(master_pass)]) + i) % len(ALPHABET)
-            # If the character is in our alphabet
+            # If the character is in "ALPHABET"
             if password[i] in ALPHABET:
                 # Find the new position after shifting
                 new_pos = (ALPHABET.find(password[i]) + shift) % len(ALPHABET)
                 # Append the encrypted character
                 encrypted_password += ALPHABET[new_pos]
             else:
-                # Keep non-alphabet characters as they are
+                # Keep non-ALPHABET characters as they are
                 encrypted_password += password[i]
         return encrypted_password
 
@@ -508,14 +504,14 @@ class App(customtkinter.CTk):
         for i in range(len(encrypted_password)):
             # Calculate shift based on master password
             shift = (ord(master_pass[i % len(master_pass)]) + i) % len(ALPHABET)
-            # If the character is in our alphabet
+            # If the character is in "ALPHABET"
             if encrypted_password[i] in ALPHABET:
                 # Find the original position after shifting
                 new_pos = (ALPHABET.find(encrypted_password[i]) - shift) % len(ALPHABET)
                 # Append the decrypted character
                 decrypted_password += ALPHABET[new_pos]
             else:
-                # Keep non-alphabet characters as they are
+                # Keep non-ALPHABET characters as they are
                 decrypted_password += encrypted_password[i]
         return decrypted_password
 
@@ -536,11 +532,12 @@ class App(customtkinter.CTk):
                 else:
                     # Start from index 1 if no data rows
                     return 1
+            file.close()# Close the file after writing
         except FileNotFoundError:
             # Start from index 1 if file not found
             return 1
 
-    # Adding a new entry to the CSV
+     # Adding a new entry to the CSV
     def add(self, name, encrypted_pass, url):
         index = self.get_next_index()  # Get the next available index
         # Open CSV file for appending
@@ -549,11 +546,14 @@ class App(customtkinter.CTk):
             writer = csv.writer(file)
             # Write the new entry
             writer.writerow([index, url, name, encrypted_pass])
+        file.close()# Close the file after writing
         print("Credentials Added Successfully.\n")
         self.textBox("Credentials Added Successfully.\n")
         self.backup()  # Create a backup of the CSV
+        
 
-    # Searching for entries in the CSV by URL/app name and decrypting passwords
+
+    # Searching for entries in the CSV by URL/app name
     def search(self, master_pass, url=''):
         results = []  # Store search results here
         # Open CSV file for reading
@@ -567,6 +567,7 @@ class App(customtkinter.CTk):
                     # Decrypt password and append row to results
                     row['Password'] = self.decrypt(row['Password'], master_pass)
                     results.append(row)
+        file.close()# Close the file after writing
         return results
 
     # Editing an existing entry in the CSV
@@ -592,10 +593,13 @@ class App(customtkinter.CTk):
             writer = csv.writer(file)
             # Write all rows back to the file
             writer.writerows(rows)
-
+            
+        file.close()  # Close the file after writing
         print("Credentials Edited Successfully.\n")
         self.textBox("Credentials Edited Successfully.\n")
         self.backup()  # Create a backup of the CSV
+        
+
 
     # Deleting an entry from the CSV by index
     def delete(self, index):
@@ -617,11 +621,13 @@ class App(customtkinter.CTk):
             # Write remaining rows back to the file
             writer.writerows(rows)
 
+        file.close()# Close the file after writing
         print("Credentials Deleted Successfully.\n")
         self.textBox("Credentials Deleted Successfully.\n")
         self.backup()  # Create a backup of the CSV
 
-    # Creating a backup of the CSV file
+
+       # Creating a backup of the CSV file
     def backup(self):
         # Read all data from the CSV file
         with open("data.csv", mode='r') as file:
@@ -631,7 +637,16 @@ class App(customtkinter.CTk):
         # Move to the parent directory
         os.chdir("..")
         # Create path for backup
-        cp = os.path.join
+        cp = os.path.join(os.getcwd(), "MYPmanager_Backup", "data.csv")
+        if not os.path.isdir('MYPmanager_Backup'):  # If 'BackupMYPmanager' not exists
+            os.makedirs('MYPmanager_Backup')  # Create one, for back up
+            print("Creating MYPmanager_Backup")
+        # Write data to backup file
+        with open(cp, mode='w') as backup_file:
+            backup_file.write(data)
+        os.chdir(dp)  # Restoring the default path
+        print("Credentials Backup Successfully.\n")
+
         
 
 if __name__ == "__main__":
