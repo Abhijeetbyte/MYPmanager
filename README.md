@@ -25,8 +25,9 @@ This is useful for managing personal passwords and other sensitive information. 
 </br>
 
 ## Features
-* Standard Password manager offers basic operations like **Add**, **Search**, **Edit** and **Delete** etc.
-* Only need to remember the Master Password for all your saved credentials.
+* Standard Password manager offers basic operations like **Add**, **Search**, **Edit** and **Delete** etc
+* Only need to remember the Master Password for all your saved credentials
+* Does not save your Master Password on your computer or **anywhere**
 * Saves your passwords in encrypted form, **locally**
 * Auto Backup as `.csv` file
 * Available in both Portable (require no installation) and Windows Installer 
