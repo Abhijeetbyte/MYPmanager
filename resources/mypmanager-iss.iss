@@ -13,7 +13,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{E1520AE3-8636-4E6E-B7AD-1021D8BEE42C}
+AppId={{8D8B24F4-B7E1-4957-B35A-F88AA8F40728}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -28,7 +28,8 @@ InfoBeforeFile=C:\Users\arpit\Desktop\Python\MYPmanager-main\Before_installation
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\arpit\Desktop\Python\MYPmanager-main
-OutputBaseFilename=MYPmanager_etup
+OutputBaseFilename=MYPmanager_setup
+SetupIconFile=C:\Users\arpit\Desktop\Python\MYPmanager-main\MYPmanager-ic.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
