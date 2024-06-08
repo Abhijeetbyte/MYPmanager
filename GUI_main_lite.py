@@ -350,6 +350,7 @@ class App(customtkinter.CTk):
         print("Searching: ", nameVariable)
         print("With: ", masterpassVariable, "\n")
         show_result = self.search(masterpassVariable, nameVariable)  # call search function
+        print(show_result,"\n")
         show_tabulate = tabulate.tabulate(show_result, headers='keys', tablefmt='pipe', showindex=False)  # Pretty Print
         self.textBox(show_tabulate)  # print in textbox area
 
@@ -359,7 +360,7 @@ class App(customtkinter.CTk):
             self.entry_button.configure(command=lambda: self.edit_multi_index(show_result, masterpassVariable))  # call this function, to handle indexes, when submit button is pressed
         else:
             print("Single credential found\n")
-            indexVariable = show_result[0]['Index']  # Extract the index from the first result( take default index)
+            indexVariable = show_result[0]['Index']  # extract the index( take default index)
             print("Default Index input:", indexVariable, "\n")
             self.entry_uname.grid(row=2, column=1, padx=20, pady=(5, 5))  # add
             self.entry_password.grid(row=3, column=1, padx=20, pady=(5, 5))  # add
@@ -387,12 +388,14 @@ class App(customtkinter.CTk):
         new_uameVariable = self.entry_uname.get()  # fetch entry box input
         new_passwordVariable = self.entry_password.get()  # fetch entry box input
         # exception
-        if not new_uameVariable:  # if found empty, take old data
-            old_name = show_result.loc[indexVariable, 'Username']  # index of that row, column id; get old Username
+        if not new_uameVariable:
+            old_name = show_result[0]['Username'] #old username
             new_uameVariable = old_name
+
         if not new_passwordVariable:
-            old_password = show_result.loc[indexVariable, 'Password']  # get old password
+            old_password = show_result[0]['Password'] #old username
             new_passwordVariable = old_password
+
         print("New Username:", new_uameVariable, ", New Password:", new_passwordVariable,"\n")
         new_passwordVariable = self.encrypt(new_passwordVariable, masterpassVariable)  # call function, to encrypted
         self.edit(indexVariable, new_uameVariable, new_passwordVariable)  # call edit function
