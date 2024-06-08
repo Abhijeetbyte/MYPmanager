@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="gif/iso-logo.png?raw=true" height="300px"/>
+    <img src="assets/iso-logo.png?raw=true" height="300px"/>
     <!--<h1 align="center">MYPmanager</h1>-->
     <h4 align="center">
       A fast and dead-simple password/credential manager app
@@ -66,12 +66,12 @@ _Your computer must be running Windows 10 or newer._
 
 ## Intro
 
-![Intro GIF](gif/MYPmanager-demo1.gif)</br>
+![Intro GIF](assets/intro-add_function-use-gif.gif)</br>
 
 
 ## Uses
 
-![Uses GIF](gif/MYPmanager-demo2.gif)</br>
+![Uses GIF](assets/search-use-gif.gif)</br>
 
 
 ## Reporting Issues & Contributions
