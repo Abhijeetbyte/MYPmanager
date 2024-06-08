@@ -81,6 +81,6 @@ Feel free to report <b>[issues](https://github.com/Abhijeetbyte/MYPmanager/issue
 
 ## License
 
-Copyright © 2022 Abhijeet kumar. All rights reserved.
+Copyright © 2024 Abhijeet kumar. All rights reserved.
 
 Licensed under the [CC0-1.0 License](LICENSE).
