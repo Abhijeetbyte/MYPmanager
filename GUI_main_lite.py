@@ -129,13 +129,16 @@ class App(customtkinter.CTk):
                                                 border_width=1,
                                                 border_color="#007ACC",
                                                 scrollbar_button_color="#007ACC",
-                                                wrap="word",
+                                                wrap="none", # allow horizontal scroll
                                                 font=("Courier", 16)) #Monospaced font
         self.textbox.grid(row=1, column=1,padx=(20, 0), pady=(20, 0), sticky="nsew")
 
+        # create horizontal scrollbar
+        self.h_scrollbar = customtkinter.CTkScrollbar(self, orientation="horizontal",button_color="#007ACC", command=self.textbox.xview)
+        self.h_scrollbar.grid(row=2, column=1, sticky="ew", padx=(20, 0), pady=(0, 5))
+        self.textbox.configure(xscrollcommand=self.h_scrollbar.set)
 
 
-    
         # set default values
         self.appearance_mode_optionemenu.set("Light")
         self.textBox(text='') # text box (clear)
@@ -165,6 +168,7 @@ class App(customtkinter.CTk):
          self.sidebar_button_frame.grid_forget()
          self.entry_frame.grid_forget()
          self.textbox.grid_forget()
+         self.h_scrollbar.grid_forget()
 
     def login_event(self): #bundel
         # Show only the login frame
@@ -173,6 +177,7 @@ class App(customtkinter.CTk):
         self.sidebar_button_frame.grid_forget()# forget frame
         self.entry_frame.grid_forget()# forget frame
         self.textbox.grid_forget()# forget frame
+        self.h_scrollbar.grid_forget()
         self.login_frame.grid(row=1, column=1, sticky="ns")  # show login frame
         
     def main_event(self): #bundel
@@ -182,6 +187,7 @@ class App(customtkinter.CTk):
         self.sidebar_button_frame.grid(row=0, column=0, rowspan=5, sticky="nsew")# show frame
         self.entry_frame.grid(row=0, column=1,padx=(20,0),pady=(20,0), sticky="nsew")# show frame
         self.textbox.grid(row=1, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")# show frame
+        self.h_scrollbar.grid(row=2, column=1, sticky="ew", padx=(20, 0), pady=(0, 20))
         self.add_button_event() # start with add menu
         
         
